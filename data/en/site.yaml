@@ -24,6 +24,6 @@ customMenus:
 openGraph:
   title: Matthew's Blog
   type: website
-  description: Portfolio and personal blog of John Doe.
+  description: Portfolio and personal blog of Matthew Henderson.
   image: images/author/matthew.png
   url: https://hugo-toha.github.io
