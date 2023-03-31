@@ -13,37 +13,44 @@ section:
 skills:
 - name: DBT
   logo: /images/sections/skills/kubernetes.png
-  summary: "Capable of deploying, managing application on Kubernetes. Experienced in writing Kubernetes controllers for CRDs."
+  summary: "Using as main framework to develop high quality analytics pipelines. Capable of writing testable, modular and well-documented code."
   url: "https://kubernetes.io/"
+
+- name: SQL
+  logo: /images/sections/skills/go.png
+  summary: "Capable of translating database reporting needs into SQL queries. Experienced writing code modern data warehouses such as BigQuery as well as traditional SQL."
+  url: "https://golang.org/"
 
 - name: Python Development
   logo: /images/sections/skills/go.png
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program."
+  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program. Experienced creating ETL/ELT processes."
   url: "https://golang.org/"
+
+- name: Dashboarding
+  logo: /images/sections/skills/c++.png
+  summary: "Worked with data viz tools such as Tableau and Looker. Experience developing interactive python dashboards with Dash and Plotly."
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
   summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
 
-- name: Docker
-  logo: /images/sections/skills/docker.svg
-  summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
-  url: "https://www.docker.com/"
-
 - name: Hugo
   logo: /images/sections/skills/prometheus.png
-  summary: "Capable of setup, configure Prometheus metrics. Experienced with PromQL, AlertManager. Also, experienced with writing metric exporters."
+  summary: ""
   url: "https://prometheus.io/"
 
 - name: R
   logo: /images/sections/skills/linux.png
   summary: "Using as the main operating system. Capable of writing bash/shell scripts."
 
+- name: Docker
+  logo: /images/sections/skills/docker.svg
+  summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
+  url: "https://www.docker.com/"
+
 - name: Git
   logo: /images/sections/skills/git.png
   summary: "Experienced with git-based development. Mostly, use Github. Also, have experience in working with GitLab."
   url: "https://git-scm.com/"
 
-- name: Dashboarding
-  logo: /images/sections/skills/c++.png
-  summary: "Know basic C/C++ programming. Used for contest programming and problem solving."
+
