@@ -15,7 +15,9 @@ experiences:
     url: "https://forecast.global/"
     location: Edinburgh
     # company overview
-    overview: Example Co. is a widely recognized company for cloud-native development. It builds tools for Kubernetes.
+    overview: >
+      Forecast is a generalist data consultancy with high profile clients across several industries. My client was the loyalty department of one of the largest 
+      companies in the UK telecommunications industry
   positions:
   - designation: Analyst
     start: Feb 2021
@@ -24,21 +26,23 @@ experiences:
     # end: Dec 2020
     # give some points about what was your responsibilities at the company.
     responsibilities:
-    - Design and develop XYZ tool for ABC task
-    - Design, develop and manage disaster recovery tool [Xtool](https://www.example.com) that backup Kubernetes volumes, databases, and cluster's resource definition.
-    - Lead backend team.
+    - Design, develop and manage analytics pipelines for business reporting
+    - Design and develop statistical analyses to measure the effectiveness of marketing campaigns 
+    - Lead project to create internal cloud cost control tool 
 
 - company:
     name: St. James's Place Wealth Management
     url: "https://www.sjp.co.uk/"
     location: Edinburgh
-    overview: PreExample Co. is a gateway company to enter into Example co. So, nothing special here.
+    overview: >
+      St. James's Place is a FTSE 100 financial company specialising in Wealth Management. There are several child companies called Partners
+      within the company, spread over the UK.
+
   positions:
   - designation: Intern
     start: Aug 2018
     end: Aug 2018
     responsibilities:
-    - Write lots of example codes.
-    - Read lots of examples.
-    - See lots of example videos.
-
+    - Understand and increase use of internal software.
+    - Analyse partners progress towards leveling up 
+    - Organise sports fund raiser for SJP Foundation.

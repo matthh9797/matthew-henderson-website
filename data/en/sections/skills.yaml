@@ -12,45 +12,48 @@ section:
 # Give a summary of you each skill in the summary section.
 skills:
 - name: DBT
-  logo: /images/sections/skills/kubernetes.png
+  logo: /images/sections/skills/dbt.svg
   summary: "Using as main framework to develop high quality analytics pipelines. Capable of writing testable, modular and well-documented code."
-  url: "https://kubernetes.io/"
+  url: "https://docs.getdbt.com/"
 
 - name: SQL
-  logo: /images/sections/skills/go.png
+  logo: /images/sections/skills/sql.svg
   summary: "Capable of translating database reporting needs into SQL queries. Experienced writing code modern data warehouses such as BigQuery as well as traditional SQL."
   url: "https://golang.org/"
 
 - name: Python Development
-  logo: /images/sections/skills/go.png
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program. Experienced creating ETL/ELT processes."
-  url: "https://golang.org/"
+  logo: /images/sections/skills/python.svg
+  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program. Experienced with ETL/ELT processes."
+  url: "https://www.python.org/"
 
 - name: Dashboarding
-  logo: /images/sections/skills/c++.png
+  logo: /images/sections/skills/icons8-dashboard-58.png
   summary: "Worked with data viz tools such as Tableau and Looker. Experience developing interactive python dashboards with Dash and Plotly."
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
-  summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
-
-- name: Hugo
-  logo: /images/sections/skills/prometheus.png
-  summary: ""
-  url: "https://prometheus.io/"
-
-- name: R
-  logo: /images/sections/skills/linux.png
-  summary: "Using as the main operating system. Capable of writing bash/shell scripts."
-
-- name: Docker
-  logo: /images/sections/skills/docker.svg
-  summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
-  url: "https://www.docker.com/"
+  summary: "Worked with GCP and AWS. Good understanding of cloud infrastructure."
 
 - name: Git
   logo: /images/sections/skills/git.png
-  summary: "Experienced with git-based development. Mostly, use Github. Also, have experience in working with GitLab."
+  summary: "Experienced with git-based development. Mostly, use Github."
   url: "https://git-scm.com/"
+
+- name: Hugo
+  logo: /images/sections/skills/hugo.png
+  summary: "Using as main framework for creating static websites. Expereinced writing custom front end code and using Go for templating."
+  url: "https://gohugo.io/"
+
+- name: R
+  logo: /images/sections/skills/r.svg
+  summary: "Capable of implementing thorough statistical analysis using R. Experienced using tidyverse packages for data science."
+  url: "https://www.r-project.org/"
+
+# - name: Docker
+#   logo: /images/sections/skills/docker.svg
+#   summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
+#   url: "https://www.docker.com/"
+
+
 
 
