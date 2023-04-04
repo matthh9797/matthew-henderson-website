@@ -17,48 +17,76 @@ degrees:
     name: University of Strathclyde
     url: "#"
   grade: #(optional)
-    scale: CGPA
-    achieved: 3.5
-    outOf: 4
+    scale: Mark
+    achieved: 75
+    outOf: 100
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
     showGrades: true
-    collapseAfter: 3
+    collapseAfter: 6
     courses:
-    - name: Data Structures and Algorithm
-      achieved: 3.75
-      outOf: 4
-    - name: Network Security
-      achieved: 3.80
-      outOf: 4
-    - name: Operating System
-      achieved: 3.5
-      outOf: 4
-    - name: Artificial Intelligent
-      achieved: 3.75
-      outOf: 4
-  publications: #(optional)
-  - title: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    url: "#"
-  - title: Fusce eu augue ut odio porttitor pulvinar.
-    url: "#"
-  extracurricularActivities: #(optional)
-  - In vitae facilisis est, eget porta sem.
-  - Vestibulum consectetur lorem justo, at laoreet lorem feugiat et.
-  - Duis sed massa feugiat, ornare justo et, aliquam est.
-  - Pellentesque ut fringilla magna.
+    - name: Modelling and Simulation with Applications to Financial Derivatives
+      achieved: 84
+      outOf: 100
+    - name: Applicable Analysis 3
+      achieved: 78
+      outOf: 100
+    - name: Medical Statistics
+      achieved: 70
+      outOf: 100
+    - name: Communicating Mathematics and Statistics
+      achieved: 66
+      outOf: 100
+    - name: Finite Element Methods of Boundary Value Problems and Approximation
+      achieved: 80
+      outOf: 100
+    - name: Mathematical Introduction to Networks
+      achieved: 73
+      outOf: 100
+
+
+  # publications: #(optional)
+  # - title: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  #   url: "#"
+  # - title: Fusce eu augue ut odio porttitor pulvinar.
+  #   url: "#"
+  # extracurricularActivities: #(optional)
+  # - In vitae facilisis est, eget porta sem.
+  # - Vestibulum consectetur lorem justo, at laoreet lorem feugiat et.
+  # - Duis sed massa feugiat, ornare justo et, aliquam est.
+  # - Pellentesque ut fringilla magna.
 - name: Higher Secondary School Certificate
   icon: fa-university
-  timeframe: 2010-2012
+  timeframe: 2009-2015
   institution:
     name: Woodmill High School
     url: "#"
-  grade: #(optional)
-    scale: GPA
-    achieved: 5
-    outOf: 5
-  extracurricularActivities: #(optional)
-  - In vitae facilisis est, eget porta sem.
-  - Vestibulum consectetur lorem justo, at laoreet lorem feugiat et.
-  - Duis sed massa feugiat, ornare justo et, aliquam est.
-  - Pellentesque ut fringilla magna.
+  # grade: #(optional)
+  #   scale: GPA
+  #   achieved: 5
+  #   outOf: 5
+  takenCourses: #(optional)
+    # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
+    header: Higher Subjects
+    showGrades: true
+    hideScale: true
+    collapseAfter: 6
+    courses:
+    - name: Mathematics
+      achieved: A
+    - name: Physical Education
+      achieved: A
+    - name: Business Education
+      achieved: A
+    - name: English
+      achieved: B
+    - name: Physics
+      achieved: B
+    - name: Chemistry
+      achieved: B
+
+  # extracurricularActivities: #(optional)
+  # - In vitae facilisis est, eget porta sem.
+  # - Vestibulum consectetur lorem justo, at laoreet lorem feugiat et.
+  # - Duis sed massa feugiat, ornare justo et, aliquam est.
+  # - Pellentesque ut fringilla magna.

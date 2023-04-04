@@ -16,8 +16,8 @@ experiences:
     location: Edinburgh
     # company overview
     overview: >
-      Forecast is a generalist data consultancy with high profile clients across several industries. My client was the loyalty department of one of the largest 
-      companies in the UK telecommunications industry
+      Forecast is a data consultancy with high profile clients across several industries. For the majority of time, my client was the loyalty department of one of the largest 
+      companies in the UK telecommunications industry.
   positions:
   - designation: Analyst
     start: Feb 2021
@@ -25,10 +25,17 @@ experiences:
     # don't provide end date if you are currently working there. It will be replaced by "Present"
     # end: Dec 2020
     # give some points about what was your responsibilities at the company.
+    achievements:
+    - Delivered a restructuring of business reporting processes using DBT, significantly increasing speed, robustness and maintainability. 
+      # Processes were migrated from Sybase to Bigquery, DBT was used for transformations, python was used for ELT and a looker dashboard was created to monitor discrepencies.
+    - Created marketing campaign dashboard which reduced manual workload of analysis from 2 days to 5 minutes.
+    - Awarded end of financial year recognition for excellent work two years running (2021 & 2022).
     responsibilities:
-    - Design, develop and manage analytics pipelines for business reporting
-    - Design and develop statistical analyses to measure the effectiveness of marketing campaigns 
-    - Lead project to create internal cloud cost control tool 
+    - Design, develop and manage analytics pipelines for business reporting.
+    - Manage clients expectations and provide timelines for projects.
+    - Design and develop statistical analyses to measure the effectiveness of marketing campaigns and content release.
+    - Led project to create internal cloud cost control tool.
+
 
 - company:
     name: St. James's Place Wealth Management
@@ -42,7 +49,11 @@ experiences:
   - designation: Intern
     start: Aug 2018
     end: Aug 2018
+    achievements:
+    - The first intern to work in a Scottish office paving the way for future internships.
+    - Gathered data on the use of internal technology through surveys, analysed and presented the results to the Head of Business, then offered training which increased efficiency of operations within the company.
+    - Organised a Sports charity fundraiser which raised over £18,000 for the SJP Foundation.
     responsibilities:
     - Understand and increase use of internal software.
-    - Analyse partners progress towards leveling up 
+    - Analyse partners progress towards internal goals with financial rewards. 
     - Organise sports fund raiser for SJP Foundation.

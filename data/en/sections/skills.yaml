@@ -28,7 +28,7 @@ skills:
 
 - name: Dashboarding
   logo: /images/sections/skills/icons8-dashboard-58.png
-  summary: "Worked with data viz tools such as Tableau and Looker. Experience developing interactive python dashboards with Dash and Plotly."
+  summary: "Worked with data viz tools such as Tableau and Looker. Experience developing interactive python dashboards with Dash, Plotly and Altair."
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
