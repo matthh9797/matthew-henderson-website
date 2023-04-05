@@ -11,54 +11,49 @@ section:
 # Your experiences
 experiences:
 - company:
-    name: Example Co.
-    url: "https://www.example.com"
-    location: Dhaka Branch
+    name: Forecast Data Services
+    url: "https://forecast.global/"
+    location: Edinburgh
     # company overview
-    overview: Example Co. is a widely recognized company for cloud-native development. It builds tools for Kubernetes.
+    overview: >
+      Forecast is a data consultancy with high profile clients across several industries. For the majority of time, my client was the loyalty department of one of the largest 
+      companies in the UK telecommunications industry.
   positions:
-  - designation: Senior Software Engineer
-    start: Nov 2019
+  - designation: Analyst
+    start: Feb 2021
+    end: Nov 2022
     # don't provide end date if you are currently working there. It will be replaced by "Present"
     # end: Dec 2020
     # give some points about what was your responsibilities at the company.
+    achievements:
+    - Delivered a restructuring of business reporting processes using DBT, significantly increasing speed, robustness and maintainability. 
+      # Processes were migrated from Sybase to Bigquery, DBT was used for transformations, python was used for ELT and a looker dashboard was created to monitor discrepancies.
+    - Created a marketing campaign dashboard which reduced manual workload of analysis from 2 days to 5 minutes.
+    - Awarded end of financial year recognition for excellent work two years running (2021 & 2022).
     responsibilities:
-    - Design and develop XYZ tool for ABC task
-    - Design, develop and manage disaster recovery tool [Xtool](https://www.example.com) that backup Kubernetes volumes, databases, and cluster's resource definition.
-    - Lead backend team.
+    - Design, develop and manage analytics pipelines for business reporting.
+    - Manage clients expectations and provide timelines for projects.
+    - Design and develop statistical analyses to measure the effectiveness of marketing campaigns and content release.
+    - Led project to create an internal cloud cost control tool.
 
-  - designation: Junior Software Engineer
-    start: Nov 2017
-    end: Oct 2019
-    responsibilities:
-    - Implement and test xyz feature for abc tool.
-    - Support client for abc tool.
-    - Learn k,d,w technology for xyz.
-
-- company:
-    name: PreExample Co.
-    url: "https://www.example.com"
-    location: Nowhere
-    overview: PreExample Co. is a gateway company to enter into Example co. So, nothing special here.
-  positions:
-  - designation: Software Engineer
-    start: March 2016
-    end: May 2017
-    responsibilities:
-    - Write lots of example codes.
-    - Read lots of examples.
-    - See lots of example videos.
 
 - company:
-    name: Intern Counting Company (ICC).
-    url: "https://www.example.com"
-    location: Intern Land
-    overview: Intern counting Company (ICC) is responsible for counting worldwide intern Engineers.
+    name: St. James's Place Wealth Management
+    url: "https://www.sjp.co.uk/"
+    location: Edinburgh
+    overview: >
+      St. James's Place is a FTSE 100 financial company specialising in Wealth Management. There are several child companies called Partners
+      within the company, spread over the UK.
+
   positions:
   - designation: Intern
-    start: Jun 2015
-    end: Jan 2016
+    start: Aug 2018
+    end: Aug 2018
+    achievements:
+    - The first intern to work in a Scottish office paving the way for future internships.
+    - Gathered data on the use of internal technology through surveys, analysed and presented the results to the Head of Business, then offered training which increased efficiency of operations within the company.
+    - Organised a Sports charity fundraiser which raised over £18,000 for the SJP Foundation.
     responsibilities:
-    - Count lost of interns.
-    - Count more interns.
-    - Count me as an intern.
+    - Understand and increase use of internal software.
+    - Analyse partners' progress towards internal goals with financial rewards. 
+    - Organise sports fundraiser for SJP Foundation.

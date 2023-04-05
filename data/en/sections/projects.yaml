@@ -14,51 +14,47 @@ buttons:
   filter: "all"
 - name: Professional
   filter: "professional"
-- name: Academic
-  filter: "academic"
+# - name: Academic
+#   filter: "academic"
 - name: Hobby
   filter: "hobby"
 
 # your projects
 projects:
-- name: Kubernetes
-  logo: /images/sections/projects/kubernetes.png
-  role: Contributor
-  timeline: "March 2018 - Present"
-  repo: https://github.com/kubernetes/kubernetes # If your project is a public repo on GitHub, then provide this link. it will show star count.
-  #url: ""  # If your project is not a public repo but it has a website or any external details url then provide it here. don't provide "repo" and "url" simultaneously.
-  summary: Production-Grade Container Scheduling and Management.
-  tags: ["professional", "kubernetes", "cloud"]
-
-- name: Tensorflow
-  logo: /images/sections/projects/tensorflow.png
+- name: Junia Jungle Trekking website
+  logo: /images/sections/projects/junia.png
   role: Developer
-  timeline: "Jun 2018 - Present"
-  repo: https://github.com/tensorflow/tensorflow
+  timeline: "Mar 2023 - Present"
+  # repo: https://github.com/kubernetes/kubernetes # If your project is a public repo on GitHub, then provide this link. it will show star count.
+  #url: ""  # If your project is not a public repo but it has a website or any external details url then provide it here. don't provide "repo" and "url" simultaneously.
+  summary: Website built using Hugo for a guest house offering jungle trekking in Gunung Leuser National Park, North Sumatra.
+  tags: ["professional", "web-design", "hugo"]
+
+# - name: Fantasy Football Analytics
+#   logo: /images/sections/projects/tensorflow.png
+#   role: Owner
+#   timeline: "Apr 2023 - Present"
+#   repo: https://github.com/matthh9797/fantasy-football-recommender
+#   #url: ""
+#   summary: End-to-end data analytics project for analysing data from the Premier League Fantasy Football API. 
+#   tags: ["hobby", "gcp", "dbt", "cloud-run"]
+
+- name: PalmBloo
+  logo: /images/sections/projects/palmbloo.png
+  role: Owner
+  timeline: "Nov 2022 - Present"
+  repo: https://github.com/matthh9797/palmbloo
   #url: ""
-  summary: An Open Source Machine Learning Framework for Everyone.
-  tags: ["professional", "machine-learning"]
+  summary: Travel blogging website advertised on social media.
+  tags: ["hobby", "web-design", "hugo"]
 
-- name: A sample academic paper
-  role: Team Lead
-  timeline: "Jan 2017 - Nov 2017"
-  url: "https://www.example.com"
-  summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eius reprehenderit animi suscipit autem eligendi esse amet aliquid error eum. Accusantium distinctio soluta aliquid quas placeat modi suscipit eligendi nisi.
-  tags: ["academic","iot"]
-
-- name: Nocode
-  logo: /images/sections/projects/no-code.png
-  role: Nothing
-  timeline: "Oct 2019 - Dec 2019"
-  repo: https://github.com/kelseyhightower/nocode
-  #url: ""
-  summary: The best way to write secure and reliable applications. Write nothing; deploy nowhere.
-  tags: ["hobby", "fun"]
-
-- name: Toha
-  logo: /images/sections/projects/toha.png
+- name: Loyalty reporting pipeline
+  logo: /images/sections/skills/dbt.svg
   role: Owner
   timeline: "Jun 2019 - Present"
-  repo: https://github.com/hossainemruz/toha
-  summary: A Hugo theme for personal portfolio.
-  tags: ["hobby","hugo","theme","professional"]
+  # repo: https://github.com/hossainemruz/toha
+  summary: >
+    Analytics engineering business reporting pipeline built for a large telecommunications company. Written using best-practice data modelling, robust testing, 
+    and comprehensive documentation. Features include incremental models to handle big data, separate environments for dev/prod, testing legitimacy of manually
+    entered data as pre-hook and BQML analysis running at the end of the pipeline.
+  tags: ["professional", "gcp", "dbt", "python"]

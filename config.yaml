@@ -1,7 +1,7 @@
-baseURL: https://hugo-toha.github.io
+baseURL: https://matthhblog.netlify.app/
 
 languageCode: en-us
-title: "John's Blog"
+title: "Matthew's Blog"
 
 # Use Hugo modules to add theme
 module:
@@ -23,9 +23,6 @@ languages:
   en:
     languageName: English
     weight: 1
-  bn:
-    languageName: বাংলা
-    weight: 3
 
 # Force a locale to be use, really useful to develop the application ! Should be commented in production, the "weight" should rocks.
 # DefaultContentLanguage: bn
@@ -54,14 +51,14 @@ enableEmoji: true
 # Site parameters
 params:
   # Background image of the landing page
-  background: /images/site/background.jpg
+  background: /images/site/background2.jpg
 
   # Provide logos for your site. The inverted logo will be used in the initial
   # transparent navbar and the main logo will be used in the non-transparent navbar.
   logo:
-    main: /images/site/main-logo.png
-    inverted: /images/site/inverted-logo.png
-    favicon: /images/site/favicon.png
+    main: /images/site/mb-favicon.png
+    inverted: /images/site/mb-favicon.png
+    favicon: /images/site/mb-favicon.png
 
   # GitHub repo of your site
   gitRepo: https://github.com/matthh9797/matthew-henderson-website
