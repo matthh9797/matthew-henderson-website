@@ -27,14 +27,14 @@ experiences:
     # give some points about what was your responsibilities at the company.
     achievements:
     - Delivered a restructuring of business reporting processes using DBT, significantly increasing speed, robustness and maintainability. 
-      # Processes were migrated from Sybase to Bigquery, DBT was used for transformations, python was used for ELT and a looker dashboard was created to monitor discrepencies.
-    - Created marketing campaign dashboard which reduced manual workload of analysis from 2 days to 5 minutes.
+      # Processes were migrated from Sybase to Bigquery, DBT was used for transformations, python was used for ELT and a looker dashboard was created to monitor discrepancies.
+    - Created a marketing campaign dashboard which reduced manual workload of analysis from 2 days to 5 minutes.
     - Awarded end of financial year recognition for excellent work two years running (2021 & 2022).
     responsibilities:
     - Design, develop and manage analytics pipelines for business reporting.
     - Manage clients expectations and provide timelines for projects.
     - Design and develop statistical analyses to measure the effectiveness of marketing campaigns and content release.
-    - Led project to create internal cloud cost control tool.
+    - Led project to create an internal cloud cost control tool.
 
 
 - company:
@@ -55,5 +55,5 @@ experiences:
     - Organised a Sports charity fundraiser which raised over £18,000 for the SJP Foundation.
     responsibilities:
     - Understand and increase use of internal software.
-    - Analyse partners progress towards internal goals with financial rewards. 
-    - Organise sports fund raiser for SJP Foundation.
+    - Analyse partners' progress towards internal goals with financial rewards. 
+    - Organise sports fundraiser for SJP Foundation.

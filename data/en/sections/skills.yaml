@@ -18,12 +18,12 @@ skills:
 
 - name: SQL
   logo: /images/sections/skills/sql.svg
-  summary: "Capable of translating database reporting needs into SQL queries. Experienced writing code modern data warehouses such as BigQuery as well as traditional SQL."
+  summary: "Capable of translating database reporting needs into SQL queries. Experienced writing code in modern data warehouses such as BigQuery as well as traditional SQL."
   url: "https://golang.org/"
 
 - name: Python Development
   logo: /images/sections/skills/python.svg
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program. Experienced with ETL/ELT processes."
+  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable programs. Experienced with ETL/ELT processes."
   url: "https://www.python.org/"
 
 - name: Dashboarding
@@ -41,7 +41,7 @@ skills:
 
 - name: Hugo
   logo: /images/sections/skills/hugo.png
-  summary: "Using as main framework for creating static websites. Expereinced writing custom front end code and using Go for templating."
+  summary: "Using as main framework for creating static websites. Experienced writing custom front end code and using Go for templating."
   url: "https://gohugo.io/"
 
 - name: R

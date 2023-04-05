@@ -10,7 +10,7 @@ section:
   # hideTitle: true
 
 degrees:
-- name: BSc Honors Mathematics
+- name: BSc Honors Mathematics (First Class)
   icon: fa-graduation-cap
   timeframe: 2015-2019
   institution:
@@ -23,7 +23,8 @@ degrees:
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
     showGrades: true
-    collapseAfter: 6
+    collapseAfter: 3
+    header: Final Year Subjects
     courses:
     - name: Modelling and Simulation with Applications to Financial Derivatives
       achieved: 84
