@@ -8,7 +8,7 @@ section:
   template: sections/about.html
 
 # your designation
-designation: Analytics Engineer
+designation: Data Professional
 # your company information
 # company:
 #   name: Example Co.
@@ -20,7 +20,7 @@ designation: Analytics Engineer
 
 # a summary about you
 summary: >
-  I am a passionate analytics engineer with 2 years of working experience. 
+  I am a passionate data professional with 2 years of working experience. 
   I built an analytics pipeline for one of the largest telecommunications companies in the UK using DBT.  
   Sometimes, I work on some fun projects such as designing websites, end-to-end data science, etc.
 
