@@ -1,4 +1,5 @@
 ---
+draft: True
 title: "Productionising the Process"
 date: 2023-05-08T10:55:44+07:00
 description: Productionising and automating batch ingestion processes

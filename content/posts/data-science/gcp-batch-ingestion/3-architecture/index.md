@@ -1,4 +1,5 @@
 ---
+draft: True
 title: "Choices for Architecture"
 date: 2023-05-08T11:08:33+07:00
 description: Architectural choices for a Batch Ingestion process
