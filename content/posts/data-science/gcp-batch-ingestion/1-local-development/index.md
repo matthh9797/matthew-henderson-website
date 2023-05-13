@@ -13,7 +13,7 @@ hero: images/cover.jpg
 tags: ["GCP","Python"]
 categories: ["Easy"]
 summary: >
-  An introduction to locally developing code for a batch ingestion process using python and the GCP API. In this article, I introduce the reason for this series of articles and the code.
+  An introduction to locally developing code for a batch ingestion process using python and the GCP API. Introducing the motivation behind this series of articles and the code concepts.
 ---
 ## Tackling Automatic Batch Data Ingestion with GCP
 
