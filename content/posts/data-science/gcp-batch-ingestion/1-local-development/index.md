@@ -21,7 +21,7 @@ summary: >
 
 I remember right at the start of my career, when I bought the book [Data Science on the Google Cloud Platform](https://www.google.co.id/books/edition/Data_Science_on_the_Google_Cloud_Platfor/F7tmEAAAQBAJ?hl=en&gbpv=1&printsec=frontcover) and opened the first chapter, titled "Ingesting Data into the Cloud", I thought to myself *"This part will be easy, I already know how to do this"*. Right? Wrong. What I did know then is how to develop single use case solutions locally and as it turned out, generalising, productionising and automating the process had lots of new concepts and technologies for me to try get my head around.[^1]
 
-So, it's two and a half years later and on and off, I've kept on coming back to that first chapter with a different question. Why do I need a storage bucket? What is a service account? Why do I need Flask? Why the f#@! is a docker container? ... and slowly I started to get my head around some of these concepts. So, I wanted to present this series of articles and supporting repository, as a note to anyone else who is in the same position as I was two and a half years ago.
+So, it's two and a half years later and on and off, I've kept on coming back to that first chapter with a different question. Why do I need a storage bucket? What is a service account? Why do I need Flask? What the f#@! is a docker container? ... and slowly I started to get my head around some of these concepts. So, I wanted to present this series of articles and supporting repository, as a note to anyone else who is in the same position as I was two and a half years ago.
 
 ## Introducing the Repository and the Data
 
