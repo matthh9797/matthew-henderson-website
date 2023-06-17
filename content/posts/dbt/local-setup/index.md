@@ -39,9 +39,8 @@ conda env create -n <NAME_OF_ENVIRONMENT> -f /path/to/environment.yml
 To setup a conda environment for dbt-bigquery run the following code on the anaconda prompt:
 
 ```cmd
-conda create --name dbt-demo python
+conda create --name dbt-demo pip
 conda activate dbt-demo
-conda install pip 
 pip install dbt-bigquery
 ```
 
@@ -57,16 +56,55 @@ Plugins:
 
 ## BigQuery Setup
 
-To initialize a new dbt project, it must be connected to a GCP project and BigQuery dataset within that project.
+To initialize a new dbt project, it must be connected to a GCP project and BigQuery dataset within that project. Assuming you have a billable project for GCP already setup, open up the BigQuery tab and create a new dataset for the project called `dbt-demo`.
 
-Assuming you have a billable project for GCP already setup, open up the BigQuery tab and create a new dataset for the project called `dbt-demo`.
+To authenticate your dbt project you need to have a service account setup with access to create and edit tables within your project and if you are planning to productionise your code, access to run jobs on a schedule. In BigQuery the name of the roles to do for this are *BigQuery Data Editor* and *BigQuery Job User* respectively. You can read more about service accounts in the [BigQuery docs](https://cloud.google.com/iam/docs/service-account-overview).
 
-### Authentication
+I will go over two ways which you can setup authentication, using the user interface and using the gcloud cli.
+
+### Authentication - Using the User Interface
 
 Once you have created a new dataset you will need to create a service account (unless you would like to use oauth). This is the authentication used to connect locally to GCP.
 
 <img src="Https://drive.google.com/uc?export=view&id=1B72WDTy_6HHUPY0wXzYgQ-i2NXVeuToH">
 
+Add the dbt specific roles.
+
+<img src="Https://drive.google.com/uc?export=view&id=11M-vohhun8wZwmiX7bBIHN2hz8-e5nNc">
+
+### Authentication - Using gcloud cli
+
+Setting up cloud infrastructure in the UI works fine however it can be difficult to remember how you set it up as there is no record. In a production environment, it is a better idea to try and setup your infrastructure with code. Whilst there are other modern options for this such as terraform to keep things simpler I will provide a way to setup the service account with a bash script. You can add this script anywhere in your project initially and run it, the commands to run bash scripts depend on your operating system (e.g. `bash name-of-script.sh` on a mac).
+
+```bash
+#!/bin/bash
+
+SVC_ACCT=dbt-demo # with source api name
+PROJECT_ID=$(gcloud config get-value project)
+REGION={{ ADD YOUR REGION }} # e.g. europe-west2
+SVC_PRINCIPAL=serviceAccount:${SVC_ACCT}@${PROJECT_ID}.iam.gserviceaccount.com
+
+gcloud iam service-accounts create $SVC_ACCT \
+    --display-name "{{ ADD YOUR DISPLAY NAME }}" \
+    --description "{{ ADD YOUR DESCRIPTION }}"
+
+# ability to create/delete partitions etc in BigQuery table
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member ${SVC_PRINCIPAL} \
+  --role roles/bigquery.dataEditor
+
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member ${SVC_PRINCIPAL} \
+  --role roles/bigquery.jobUser
+
+# Optionally, run this code to check the permissions worked
+gcloud projects get-iam-policy $(gcloud config get-value project) \
+    --flatten="bindings[].members" \
+    --format='table(bindings.role)' \
+    --filter="bindings.members:svc-fpl-transform"
+```
+
+### Download the Service Account
 
 When you have a service account setup, you will need to create a new json key and download it locally.
 
