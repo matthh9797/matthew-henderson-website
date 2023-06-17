@@ -39,9 +39,8 @@ conda env create -n <NAME_OF_ENVIRONMENT> -f /path/to/environment.yml
 To setup a conda environment for dbt-bigquery run the following code on the anaconda prompt:
 
 ```cmd
-conda create --name dbt-demo python
+conda create --name dbt-demo pip
 conda activate dbt-demo
-conda install pip 
 pip install dbt-bigquery
 ```
 
