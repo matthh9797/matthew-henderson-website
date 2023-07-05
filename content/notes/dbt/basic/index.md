@@ -15,6 +15,7 @@ menu:
 - [Optimizing VS Code for dbt on Mac](https://towardsdatascience.com/optimizing-vs-code-for-dbt-on-mac-a56dd27ba8d5) - awesome vs code setup for dbt, article written specifically for Mac but same could be done for Windows 
 - [Pro tips for workflows](https://docs.getdbt.com/guides/legacy/best-practices#pro-tips-for-workflows) - advanced dbt workflows
 - [Youtube: Create Modular Date Models](https://www.youtube.com/watch?v=5W6VrnHVkCA) - presentation explaining how you can refactor dbt data models to make them more structured and performant
+- [Project Checklist: DAG Auditing](https://docs.getdbt.com/blog/essential-dbt-project-checklist#-dag-auditing)
 {{< /note >}}
 
 <!-- Workflows -->
