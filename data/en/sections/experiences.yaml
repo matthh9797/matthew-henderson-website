@@ -11,6 +11,31 @@ section:
 # Your experiences
 experiences:
 - company:
+    name: Jetty Technologies
+    url: "https://www.jettytechnologies.com/"
+    location: UK, Remote
+    # company overview
+    overview: >
+      I am currently building Jetty's data infrastructure from scratch. Jetty is a white-label customer management and billing platform for gigabit fibre-to-the-home and other digital services. 
+  positions:
+  - designation: Data Engineer
+    start: Jul 2023
+    end: Present
+    # don't provide end date if you are currently working there. It will be replaced by "Present"
+    # end: Dec 2020
+    # give some points about what was your responsibilities at the company.
+    achievements:
+    - Built a serverless python application for ingesting data from multiple sources into BigQuery using batch and streaming methods. The application is deployed as a cloud run service with CI/CD which costs under £1 per month to run in production and also has built in monitoring to Discord.
+    - Created a DBT pipeline for turning raw data sources into useful business oriented data models using well documented and tested SQL logic. The DBT pipeline is wrapped in a Flask application which is deployed as a cloud run service with CI/CD and useful logging and monitoring.
+    - Designed Looker dashboards for internal and external use. Internally dashboards were used to monitor data pipelines and externally they were used for client reporting.
+    responsibilities:
+    - Build all data infrastructure from scratch in Google Cloud Platform.
+    - Set standards for use of data and reporting within the business.
+    - Create cost effective applications to ingest data using batch and real time streaming methods.
+    - Design and develop all business reporting logic.
+    - Build front end dashboards for reporting to clients.
+
+- company:
     name: Forecast Data Services
     url: "https://forecast.global/"
     location: Edinburgh
