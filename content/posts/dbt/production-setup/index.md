@@ -8,14 +8,14 @@ menu:
     identifier: dbt-production-setup
     parent: dbt
     weight: 20
-hero: images/dbt-gcp-logo.png
+hero: images/production.jpg
 tags: ["DBT","Production", "GCP", "Cloud Run", "Flask"]
 categories: ["Intermediate"]
 ---
 
 ## Pre-requisites
 
-There are several ways to recreate this article but to follow along line for line you will need:
+There are several ways to recreate this article but to follow along line for line you will need: [^1]
 
  - The [gcloud CLI](https://cloud.google.com/sdk/docs/install) installed and configured.
  - [Anaconda](https://www.anaconda.com/products/distribution) installed and configured.
@@ -26,9 +26,11 @@ There are several ways to recreate this article but to follow along line for lin
 
 ## Introduction
 
-For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web. Either, they seem for too complicated or they involve too many programming languages. I am not totally against using multiple programming langauges in one project but since DBT is a python tool it would surely make sense to use a python solution for hosting DBT. 
+- Code: [github.com/matthh9797/dbt-cloud-run-template](https://github.com/matthh9797/dbt-cloud-run-template)
 
-To my delight, I recently stumbled upon a new release of [programmatic invocations](https://docs.getdbt.com/reference/programmatic-invocations) on the DBT docs which allows you to run DBT via a python programme. This means that we can deploy DBT into production with a regular Python Flask programme with Cloud Run. Finally, a better way to deploy DBT on Google Cloud!
+For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web. Either, they seem far too complicated or they involve multiple programming languages. I am not totally against using multiple programming langauges in one project but since DBT is a python command line tool it would surely make sense to use a python solution to host it. 
+
+To my delight, I recently stumbled upon a new release, as of DBT 1.5 you can invoke DBT using a python programme, see [programmatic invocations](https://docs.getdbt.com/reference/programmatic-invocations). This means that we can create a relatively simple Flask application which can be deployed as a Cloud Run service to host our DBT pipelines. Finally, a better way to deploy DBT on Google Cloud!
 
 ## Getting Started
 
@@ -44,24 +46,28 @@ pip install Flask
 
 ## Hello World Cloud Run App
 
-Now create a new python flask project, using Cloud Code by clicking 'Create New Cloud Run App', this will create a project with a folder structured for a Flask application. Otherwise copy the folders/files from the repository for this article. Test the app by starting a Docker Daemen (you can do this by opening Docker Desktop) and check the Hello World app is working by clicking 'Run App on Local Cloud Run Emulator' on the Cloud Code extension.
+Now create a new python flask project, using Cloud Code by clicking 'Create New Cloud Run App', this will create a project with a folder structured for a Flask application. Test the app by starting a Docker Daemen (you can do this by opening Docker Desktop) and check the Hello World app is working by clicking 'Run App on Local Cloud Run Emulator' on the Cloud Code extension.
 
 If your app is working properly you should be able to view the home page at [http://localhost:8080/](http://localhost:8080/). You can view detailing logs on the VS Code OUTPUT tab by clicking 'Cloud Run: Run/Debug Locally - Detailed' including HTTP requests.
+
+{{< alert type="info" >}}
+You can remove the folders/files for the Getting Started app after testing. However, personally I like to keep them for a simple way to check if the app is running.
+{{< /alert >}}
 
 {{< img src="images/cloud-run-hello-world-app.png" >}}
 
 ## Add DBT to your Flask App 
 
-You can follow the steps in my other article [Local Environment Setup For DBT With GCP Using Conda]({{< ref "posts/dbt/local-setup/index.md" >}}) to set up your local dbt project. Optionally, I like to rename my DBT project folder to a folder named dbt using `mv {{YOUR_PROJECT_NAME}} dbt`.
+You can follow the steps in my other article [Local Environment Setup For DBT With GCP Using Conda]({{< ref "posts/dbt/local-setup/index.md" >}}) to set up your local dbt project. I like to rename my DBT project folder to a folder named dbt.
 
 {{< alert type="info" >}}
-Git Commit Checkpoint: git commit -m "dbt init"
+I like to name the folder containing my DBT project `dbt`, note, the name of this folder does not affect your DBT project configuration.
 {{< /alert >}}
 
 For production deployment create a file called `profiles.yml` inside you dbt project directory and copy the project configuration from the default dbt profiles at `~/.dbt/profiles.yml`. Add a new target called `local` which is authenticated by a service key called `tempkey.json` in the root directory.
 
 ```yml
-cloud_run_template:
+YOUR_DBT_PROJECT:
   target: dev
   outputs:
     local:
@@ -87,7 +93,25 @@ cloud_run_template:
       type: bigquery
 ```
 
+{{< alert type="info" >}}
+Usually, you will have at least one more profile, for example, `prod` for your production data 
+{{< /alert >}}
+
+## Create a Temporary Service Key
+
 To create the temporary service account key run the following replacing SVC_ACCT_EMAIL with your service account for DBT. If you haven't created one check out this article [Local Environment Setup For DBT With GCP Using Conda]({{< ref "posts/dbt/local-setup/index.md" >}}). Take a note of the key id so you can delete it after you have finished developing.
+
+{{< alert type="warning" >}}
+Make sure you add tempkey.json to .gitignore
+{{< /alert >}}
+
+Login with your gcloud credentials.
+
+```cmd
+gcloud auth application-default login
+```
+
+Create a temporary key for your service account in the root of your application.
 
 ```cmd  
 gcloud iam service-accounts keys create tempkey.json --iam-account=SVC_ACCT_EMAIL
@@ -96,12 +120,80 @@ gcloud iam service-accounts keys create tempkey.json --iam-account=SVC_ACCT_EMAI
 Now test dbt is working by running:
 
 ```cmd  
+dbt debug --target local --project-dir dbt --profiles-dir dbt
 dbt run --profiles-dir dbt --project-dir dbt --target local
 ```
 
-## Add DBT Handler to App
+## Add DBT Deployment Scripts
 
-In the Dockerfile after `COPY . . ` add a line `RUN dbt deps --profiles-dir dbt --project-dir dbt` to download any dbt packages required for your project. You can test this by adding a file called `packages.yml` to you DBT project and adding the following to download dbt utils:
+In `app.py` add the following imports to the top of your script and set up google cloud logging, this will ensure that your DBT logs are sent to Google Cloud Logging.
+
+```python
+import os
+import logging
+import json
+import os
+
+from flask import Flask, request, escape, render_template
+import google.cloud.logging
+from dbt.cli.main import dbtRunner, dbtRunnerResult
+
+
+client = google.cloud.logging.Client()
+client.setup_logging()
+```
+
+Now add an endpoint to your app to run a certain set of DBT commands programmatically. The following snippet takes a POST request and reads the optional parameter `target` which defaults to dev, then runs `dbt source freshness` and `dbt build`. 
+
+{{< alert type="info" >}}
+You might want to buld on this by, for example, adding another endpoint called weekly which is invoked every week and add the `--full-refresh` flag to fully refresh any incremental models
+{{< /alert >}}
+
+```python
+@app.route('/daily', methods=['POST'])
+def daily():
+    """DBT Daily Runner."""
+
+    try:
+
+        json = request.get_json(force=True) # https://stackoverflow.com/questions/53216177/http-triggering-cloud-function-with-cloud-scheduler/60615210#60615210
+        target = escape(json['target']) if 'target' in json else 'prod'
+
+        # initialize
+        dbt = dbtRunner()
+
+        # create CLI args as a list of strings
+        cli_args = ["--project-dir", "dbt", "--profiles-dir", "dbt"]
+        target_arg = ['--target', target]
+ 
+        logging.info('Running: dbt source freshness')
+        res: dbtRunnerResult = dbt.invoke(['source', 'freshness'] + cli_args + target_arg)
+
+        logging.info('Running: dbt build')
+        res: dbtRunnerResult = dbt.invoke(['build'] + cli_args + target_arg)
+
+        ok = 'DBT Run Successfully'
+        logging.info(ok)
+        return ok     
+    
+    except Exception as e:
+        logging.exception(e)
+        return e
+```
+
+Amend your dockerfile by using the image that [dbt labs official image](https://github.com/dbt-labs/dbt-bigquery/pkgs/container/dbt-bigquery) and add a line to run `dbt deps` after `COPY . .`.
+
+```Dockerfile
+# Python image to use.
+FROM ghcr.io/dbt-labs/dbt-bigquery:1.5.6
+
+...
+
+# Download dbt dependencies
+RUN dbt deps --profiles-dir dbt --project-dir dbt
+```
+
+To test the package downloads are working you can add a package to the `dbt/packages.yml` file like so.
 
 ```yml  
 packages:
@@ -109,64 +201,62 @@ packages:
     version: 1.1.1 # Update to current version if required
 ```
 
-Now add an endpoint to your app to run a certain set of DBT commands programmaticly. The following snippet takes a POST request and reads the optional parameter `target` which defaults to dev, then runs dbt test and dbt run.
+## Test the Deployment Locally
 
-```python
-@app.route('/daily', methods=['POST'])
-def daily():
-    """DBT Daily Runner"""
-    try:
-        json = request.get_json(force=True) # https://stackoverflow.com/questions/53216177/http-triggering-cloud-function-with-cloud-scheduler/60615210#60615210
+To test if the deployment is working locally add your service account email to the `.vscode/launch.json` under the service configuration.
 
-        target = escape(json['target']) if 'target' in json else 'dev'
-
-        dbt = dbtRunner()
-
-        target_arg = ['--target', target]
-
-        cli_args = ['--project-dir', 'dbt', '--profiles-dir', 'dbt']
-
-        res: dbtRunnerResult = dbt.invoke(['test'] + target_arg + cli_args)
-        res: dbtRunnerResult = dbt.invoke(['run'] + target_arg + cli_args)
-
-        ok = 'DBT run successfully'
-        return ok
-    
-    except Exception as e:
-        return e
+```json
+{
+    "configurations": [
+        {
+          ...
+          "service": {
+                ...
+                "serviceAccountName": "YOUR_SERVICE_ACCOUNT_EMAIL",
+          }
+    ]
+}
 ```
 
-You will also need to add the following imports:
+Now you can test your application locally by running it again on the Cloud Run Emulator. When the app is running you can test it by invoking the local endpoint, I like using [https://reqbin.com/](https://reqbin.com/) for this. Send a post request to [http://localhost:8080/daily](http://localhost:8080/daily) with the message `{"target": "local"}`. If your application has run successfully you will get the success message returned. You can check on the detailed logs that logging is being sent to the google-cloud-logging API.
 
-```python 
-from flask import Flask, render_template, request, escape
-from dbt.cli.main import dbtRunner, dbtRunnerResult
+```cmd
+DBT Run Successfully 
 ```
 
-Test your app locally by again running the app on the cloud run emulator. To debug the app, run in debug mode and add checkpoints. You can test your endpoint using curl or an app like [https://reqbin.com/](https://reqbin.com/). Send a post request to [http://localhost:8080/daily](http://localhost:8080/daily) with the message `{"target": "local"}`. View the detailed logs to view the DBT output. If DBT runs successfully, you will get the success message returned:
+{{< alert type="info" >}}
+It's not often the case that everything works first time, for debugging, I would recommend using the 'Debug App on Local Cloud Run Emulator' option on cloud code with breakpoints.
+{{< /alert >}}
 
-```
-DBT run successfully
-```
+## Removing the Temporary Service Account Key
 
-To get simple logs, just add the following to the top of your app. You can test this works by adding a logging message and viewing the detailed logs.
-
-```cmd 
-import google.cloud.logging
-
-client = google.cloud.logging.Client()
-client.setup_logging()
-```
-
-Now we have finished local development we can delete our temporary key by running the following by replacing the SVC_ACCT_KEY_ID with the ID you noted down at the start of the session. Note in production the DBT authentication with run with OAuth 2.0 using the service account you deploy it with.
+Make sure to delete the temporary service account key you created after you have finished with local development. Note that no service account key is required in deployment as cloud run will use OAuth.
 
 ```bash 
 gcloud iam service-accounts keys delete SVC_ACCT_KEY_ID --iam-account=SVC_ACCT_EMAIL
 ```
 
-Now our app is working locally you can deploy it to Cloud Run by clicking 'Deploy to Cloud Run'.
+## Deploy Your App into Production
+
+Now our app is working locally you can deploy it to Cloud Run by running the following bash script. If you have a Windows machine you may need to run this with the GCP Cloud Shell. Now that your cloud run service is deployed you can easily set up Cloud Scheduler to invoke it on a daily basis. For more information on that I would recommend checking out [Data Science on GCP](https://github.com/GoogleCloudPlatform/data-science-on-gcp/tree/edition2/02_ingest).
+
+```bash
+SERVICE_ACCOUNT=YOUR_SERVICE_ACCOUNT
+SERVICE_NAME=YOUR_SERVICE_NAME # e.g. dbt-daily
+REGION=YOUR_REGION # e.g. europe-west2
+
+gcloud builds submit \
+  --tag gcr.io/$(gcloud config get-value project)/${SERVICE_NAME}
+
+gcloud run deploy ${SERVICE_NAME} --region $REGION \
+    --image gcr.io/$(gcloud config get-value project)/${SERVICE_NAME} \
+    --service-account ${SERVICE_ACCOUNT}@$(gcloud config get-value project).iam.gserviceaccount.com \
+    --platform managed \
+    --no-allow-unauthenticated
+```
 
 ## Conclusion
 
-We have just tested and deploy a simple Flask application to Cloud Run which can be invoked with Cloud Scheduler to run DBT in production. I believe this deployment is better because it is more simple than others I have found on the internet and because it uses Flask which keeps everything in Python. This deployment can also be easily extended to include logging and monitoring which I plan to show in a future article.
+We have just tested and deployed a simple Flask application to wrap up a DBT pipeline and run it in production. I believe this deployment is an improvement on other popular solutions I have found on the internet because, 1, it is more simple, 2, it is a python application. One of the main advantages of it being a python application is that in my opinion most people who know DBT are likely to be familiar with python as opposed to GO, for example. This means we can easily extend this application to handle the results and add things like monitoring. I plan to add more detail on this in the future so stay tuned!
 
+[^1]: <a href="https://www.freepik.com/free-photo/motion-blur-automatic-train-moving-inside-tunnel-tokyo-japan_10824403.htm#query=automatic&position=0&from_view=search&track=sph">Image by tawatchai07</a> on Freepik
