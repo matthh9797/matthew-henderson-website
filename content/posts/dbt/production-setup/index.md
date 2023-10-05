@@ -11,6 +11,8 @@ menu:
 hero: images/production.jpg
 tags: ["DBT","Production", "GCP", "Cloud Run", "Flask"]
 categories: ["Intermediate"]
+summary: >
+  For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web.
 ---
 
 ## Pre-requisites
