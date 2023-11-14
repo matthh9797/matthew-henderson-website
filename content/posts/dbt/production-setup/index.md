@@ -15,6 +15,17 @@ summary: >
   For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web.
 ---
 
+All the code for this article can be found in the template repository linked below and you can also read this artlice on my Medium.
+
+- Code: [github.com/matthh9797/dbt-cloud-run-template](https://github.com/matthh9797/dbt-cloud-run-template)
+- You can also read this article on Meidum: [medium.com/@matthh9797/finally-a-better-way-to-deploy-dbt-on-google-cloud](medium.com/@matthh9797/finally-a-better-way-to-deploy-dbt-on-google-cloud) 
+
+For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web. Either, they seem far too complicated or they involve multiple programming languages. I am not totally against using multiple programming langauges in one project but since DBT is a python command line tool it would surely make sense to use a python solution to host it. 
+
+To my delight, I recently stumbled upon a new release, as of DBT 1.5 you can invoke DBT using a python programme, see [programmatic invocations](https://docs.getdbt.com/reference/programmatic-invocations). This means that we can create a relatively simple Flask application which can be deployed as a Cloud Run service to host our DBT pipelines. Finally, a better way to deploy DBT on Google Cloud!
+
+{{< img src="images/dbt-deployment.png" >}}
+
 ## Pre-requisites
 
 There are several ways to recreate this article but to follow along line for line you will need: [^1]
@@ -25,14 +36,6 @@ There are several ways to recreate this article but to follow along line for lin
  - [Docker](https://www.docker.com/)
  - [VS Code](https://code.visualstudio.com/)
  - [VS Code Extension - Cloud Code](https://cloud.google.com/code) (For local development)
-
-## Introduction
-
-- Code: [github.com/matthh9797/dbt-cloud-run-template](https://github.com/matthh9797/dbt-cloud-run-template)
-
-For the last year or so I've been looking for a good way to productionise DBT pipelines on Google Cloud Platform but I've been frustrated by the solutions I've found on the web. Either, they seem far too complicated or they involve multiple programming languages. I am not totally against using multiple programming langauges in one project but since DBT is a python command line tool it would surely make sense to use a python solution to host it. 
-
-To my delight, I recently stumbled upon a new release, as of DBT 1.5 you can invoke DBT using a python programme, see [programmatic invocations](https://docs.getdbt.com/reference/programmatic-invocations). This means that we can create a relatively simple Flask application which can be deployed as a Cloud Run service to host our DBT pipelines. Finally, a better way to deploy DBT on Google Cloud!
 
 ## Getting Started
 
@@ -60,30 +63,33 @@ You can remove the folders/files for the Getting Started app after testing. Howe
 
 ## Add DBT to your Flask App 
 
+{{< alert type="warning" >}}
+**Update (2023-11-14)** This section has been updated from the orginal version of the article to be more secure, instead of creating a temporary service account, we can use the [gcp auth addon](https://minikube.sigs.k8s.io/docs/handbook/addons/gcp-auth/) to connect with GCP locally.
+{{< /alert >}}
+
 You can follow the steps in my other article [Local Environment Setup For DBT With GCP Using Conda]({{< ref "posts/dbt/local-setup/index.md" >}}) to set up your local dbt project. I like to rename my DBT project folder to a folder named dbt.
 
 {{< alert type="info" >}}
 I like to name the folder containing my DBT project `dbt`, note, the name of this folder does not affect your DBT project configuration.
 {{< /alert >}}
 
-For production deployment create a file called `profiles.yml` inside you dbt project directory and copy the project configuration from the default dbt profiles at `~/.dbt/profiles.yml`. Add a new target called `local` which is authenticated by a service key called `tempkey.json` in the root directory.
+For production deployment create a file called `profiles.yml` inside you dbt project directory and copy the project configuration from the default dbt profiles at `~/.dbt/profiles.yml`.
 
 ```yml
 YOUR_DBT_PROJECT:
   target: dev
   outputs:
-    local:
+    dev:
       dataset: YOUR_DATASET
       job_execution_timeout_seconds: 300
       job_retries: 1
       location: EU
-      method: service-account
-      keyfile: tempkey.json
+      method: oauth
       priority: interactive
       project: YOUR_PROJECT
       threads: 4
       type: bigquery
-    dev:
+    prod:
       dataset: YOUR_DATASET
       job_execution_timeout_seconds: 300
       job_retries: 1
@@ -99,31 +105,21 @@ YOUR_DBT_PROJECT:
 Usually, you will have at least one more profile, for example, `prod` for your production data 
 {{< /alert >}}
 
-## Create a Temporary Service Key
+## Authenticate with GCP from your Local Container
 
-To create the temporary service account key run the following replacing SVC_ACCT_EMAIL with your service account for DBT. If you haven't created one check out this article [Local Environment Setup For DBT With GCP Using Conda]({{< ref "posts/dbt/local-setup/index.md" >}}). Take a note of the key id so you can delete it after you have finished developing.
-
-{{< alert type="warning" >}}
-Make sure you add tempkey.json to .gitignore
-{{< /alert >}}
-
-Login with your gcloud credentials.
+To authenticate your local cloud code container with GCP first login with your gcloud credentials and set your project.
 
 ```cmd
 gcloud auth application-default login
+gcloud config set project YOUR_PROJECT
 ```
 
-Create a temporary key for your service account in the root of your application.
+Next, enable the [GCP Auth addon](https://minikube.sigs.k8s.io/docs/handbook/addons/gcp-auth/) in your VS Code workspace setttings.
 
-```cmd  
-gcloud iam service-accounts keys create tempkey.json --iam-account=SVC_ACCT_EMAIL
-```
-
-Now test dbt is working by running:
-
-```cmd  
-dbt debug --target local --project-dir dbt --profiles-dir dbt
-dbt run --profiles-dir dbt --project-dir dbt --target local
+```yaml
+{
+    "cloudcode.useGcloudAuthSkaffold": true
+}
 ```
 
 ## Add DBT Deployment Scripts
@@ -205,22 +201,7 @@ packages:
 
 ## Test the Deployment Locally
 
-To test if the deployment is working locally add your service account email to the `.vscode/launch.json` under the service configuration.
-
-```json
-{
-    "configurations": [
-        {
-          ...
-          "service": {
-                ...
-                "serviceAccountName": "YOUR_SERVICE_ACCOUNT_EMAIL",
-          }
-    ]
-}
-```
-
-Now you can test your application locally by running it again on the Cloud Run Emulator. When the app is running you can test it by invoking the local endpoint, I like using [https://reqbin.com/](https://reqbin.com/) for this. Send a post request to [http://localhost:8080/daily](http://localhost:8080/daily) with the message `{"target": "local"}`. If your application has run successfully you will get the success message returned. You can check on the detailed logs that logging is being sent to the google-cloud-logging API.
+To test if the deployment is working locally, you can test your application locally by running it again on the Cloud Run Emulator. When the app is running you can test it by invoking the local endpoint, I like using [https://reqbin.com/](https://reqbin.com/) for this. Send a post request to [http://localhost:8080/daily](http://localhost:8080/daily) with the message `{"target": "dev"}`. If your application has run successfully you will get the success message returned. You can check on the detailed logs that logging is being sent to the google-cloud-logging API.
 
 ```cmd
 DBT Run Successfully 
@@ -229,14 +210,6 @@ DBT Run Successfully
 {{< alert type="info" >}}
 It's not often the case that everything works first time, for debugging, I would recommend using the 'Debug App on Local Cloud Run Emulator' option on cloud code with breakpoints.
 {{< /alert >}}
-
-## Removing the Temporary Service Account Key
-
-Make sure to delete the temporary service account key you created after you have finished with local development. Note that no service account key is required in deployment as cloud run will use OAuth.
-
-```bash 
-gcloud iam service-accounts keys delete SVC_ACCT_KEY_ID --iam-account=SVC_ACCT_EMAIL
-```
 
 ## Deploy Your App into Production
 
