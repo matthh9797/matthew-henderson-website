@@ -22,7 +22,7 @@ customMenus:
 
 # Specify OpenGraph Headers
 openGraph:
-  title: Matthew's Blog
+  title: MattAnalytix
   type: website
   description: Portfolio and personal blog of Matthew Henderson.
   image: images/author/matthew.png
