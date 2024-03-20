@@ -4,8 +4,8 @@ date: 2022-04-16T09:09:54+01:00
 description: Setting up a Production GCP environment for DBT
 menu:
   sidebar:
-    name: Production Setup GCP
-    identifier: dbt-production-setup
+    name: GCP Production Setup 1
+    identifier: dbt-production-setup-1
     parent: dbt
     weight: 20
 hero: images/production.jpg
