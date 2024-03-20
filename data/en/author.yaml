@@ -6,7 +6,7 @@ greeting: "Hi, I am"
 image: "images/author/matthew.png"
 # give your some contact information. they will be used in the footer
 contactInfo:
-  email: "matthewh@netextremity.com"
+  email: "info@mattanalytix.com"
   phone: "+44 7476 862080"
   github: matthh9797
   linkedin: matthew-henderson-986374bb
@@ -15,5 +15,5 @@ contactInfo:
 summary:
   - I am a Analytics Engineer
   - I am a Developer
-  - I love to build things
+  - I love to build cloud solutions
   - I love to work with some fun projects

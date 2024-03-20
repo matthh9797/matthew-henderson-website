@@ -11,48 +11,67 @@ section:
 # Your Skills.
 # Give a summary of you each skill in the summary section.
 skills:
-- name: DBT
-  logo: /images/sections/skills/dbt.svg
-  summary: "Using as main framework to develop high quality analytics pipelines. Capable of writing testable, modular and well-documented code."
-  url: "https://docs.getdbt.com/"
+- name: GCP
+  logo: /images/sections/skills/google-cloud.svg
+  summary: "Specializing in tailored analytics pipelines, I excel in serverless frameworks, utilizing GCP services like Cloud Run, Cloud Build, Workflows, Pub/Sub, and Compute Engine to meet client needs."
+  url: "https://cloud.google.com/"
 
-- name: SQL
-  logo: /images/sections/skills/sql.svg
-  summary: "Capable of translating database reporting needs into SQL queries. Experienced writing code in modern data warehouses such as BigQuery as well as traditional SQL."
-  url: "https://golang.org/"
+- name: BigQuery
+  logo: /images/sections/skills/bigquery.png
+  summary: "Over years of hands-on experience, I've developed a deep understanding of its advanced features. This allows me to expertly analyze data and optimize queries for maximum efficiency."
+  url: "https://cloud.google.com/bigquery/"
 
 - name: Python Development
   logo: /images/sections/skills/python.svg
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable programs. Experienced with ETL/ELT processes."
+  summary: "Utilizing as my primary language for professional development, I excel in crafting scalable, testable, and maintainable programs. I have extensive experience with ETL/ELT processes."
   url: "https://www.python.org/"
 
-- name: Dashboarding
-  logo: /images/sections/skills/icons8-dashboard-58.png
-  summary: "Worked with data viz tools such as Tableau and Looker. Experience developing interactive python dashboards with Dash, Plotly and Altair."
+- name: DBT
+  logo: /images/sections/skills/dbt.svg
+  summary: "Using as main framework to develop high-quality analytics pipelines that are modular, thoroughly tested, and well-documented. This enabling me to construct insightful and accurate data models."
+  url: "https://docs.getdbt.com/"
 
-- name: Cloud Computing
-  logo: /images/sections/skills/cloud.png
-  summary: "Worked with GCP and AWS. Good understanding of cloud infrastructure."
+- name: Looker
+  logo: /images/sections/skills/looker.svg
+  summary: "Crafting slick, user-friendly dashboards, I bring analytics insights to life for clients with custom designs and intuitive layouts. This makes insights actionable in no time."
+  url: "https://cloud.google.com/looker"
 
-- name: Git
-  logo: /images/sections/skills/git.png
-  summary: "Experienced with git-based development. Mostly, use Github."
-  url: "https://git-scm.com/"
+- name: Terraform
+  logo: /images/sections/skills/terraform.svg
+  summary: "Using to deploy cloud infrastructure efficiently. This has been a game-changer for managing cloud environments allowing me to automate resources needed for projects."
+  url: "https://www.terraform.io/"
 
-- name: Hugo
-  logo: /images/sections/skills/hugo.png
-  summary: "Using as main framework for creating static websites. Experienced writing custom front end code and using Go for templating."
-  url: "https://gohugo.io/"
+- name: Cloud Build
+  logo: /images/sections/skills/cloud_build.svg
+  summary: "Using as primary tool for implementing CI/CD workflows. Actively utilizing its capabilities to ensure rapid iteration and maintain high standards of code quality throughout the development lifecycle."
+  url: "https://cloud.google.com/build"
 
-- name: R
-  logo: /images/sections/skills/r.svg
-  summary: "Capable of implementing thorough statistical analysis using R. Experienced using tidyverse packages for data science."
-  url: "https://www.r-project.org/"
+- name: Cloud Run
+  logo: /images/sections/skills/cloud_run.png
+  summary: "Most of my programs are Dockerized Python web applications, deployable to Cloud Run. This serverless approach simplifies scalability and proves cost-effective by allocating resources based on usage."
+  url: "https://cloud.google.com/run"
 
-# - name: Docker
-#   logo: /images/sections/skills/docker.svg
-#   summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
-#   url: "https://www.docker.com/"
+- name: Pub/Sub
+  logo: /images/sections/skills/pubsub.svg
+  summary: "Leveraging for real-time data ingestion needs. It ensures efficient communication between different parts of my applications, enabling swift processing and analysis of incoming data for timely decision-making."
+  url: "https://cloud.google.com/pubsub"
+
+# - name: Git
+#   logo: /images/sections/skills/git.png
+#   summary: "Experienced with git-based development. Mostly, use Github."
+#   url: "https://git-scm.com/"
+
+# - name: Hugo
+#   logo: /images/sections/skills/hugo.png
+#   summary: "Using as main framework for creating static websites. Experienced writing custom front end code and using Go for templating."
+#   url: "https://gohugo.io/"
+
+# - name: R
+#   logo: /images/sections/skills/r.svg
+#   summary: "Capable of implementing thorough statistical analysis using R. Experienced using tidyverse packages for data science."
+#   url: "https://www.r-project.org/"
+
+
 
 
 

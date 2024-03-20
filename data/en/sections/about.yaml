@@ -20,16 +20,16 @@ designation: Data Professional
 
 # a summary about you
 summary: >
-  I am a data enthusiast who enjoys learning and doing everything in data science, engineering and programming.
-  I built an analytics pipeline for one of the largest telecommunications companies in the UK using DBT.  
-  Sometimes, I work on some fun projects such as designing websites, end-to-end data science, etc.
+  I'm a data enthusiast who's all about soaking up knowledge and getting my hands dirty in data science, engineering, and coding.
+  I have substantial experience in crafting end-to-end analytics pipelines in Google Cloud Platform, specializing in cost-effective serverless frameworks. 
+  I love diving into cool projects like using machine learning for some next-level analytics and crafting websites on the side.
 
 # your social links
 # give as many as you want. use font-awesome for the icons.
 socialLinks:
 - name: Email
   icon: "fas fa-envelope"
-  url: "matthewh@netextremity.com"
+  url: "info@mattanalytix.com"
 
 - name: Github
   icon: "fab fa-github"
