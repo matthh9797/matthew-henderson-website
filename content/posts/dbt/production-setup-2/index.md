@@ -121,7 +121,7 @@ class Alert:
         return requests.post(self.WEBHOOK_URL, {"content": output_from_parsed_template})  
 ```
 
-## Examine the run results
+## Take a look at the dbtRunnerResult class
 
 We need import two classes from the main DBT CLI that will allow us to invoke DBT and examine the results, these are `dbtRunner` and `dbtRunnerResult`. `dbtRunner` is the class we can use to invoke DBT and `dbtRunnerResult` is the class which is returned as the result. The following code executes `dbt run` and returns the results as a variable named `res`.
 
@@ -145,7 +145,7 @@ for line in res.result:
 2023-12-06 08:53:17,754 [INFO] SUCCESS my_second_dbt_model [CREATE VIEW (0 processed)]
 ```
 
-## Smart logging with jinja2 + python
+## Templated alerting with jinja2
 
 We can write the following python code to log results to discord 
 
@@ -211,10 +211,6 @@ LOOKUP_HANDLER = {
 def handle_dbt_result(command: str, res: dbtRunnerResult, alert: Alert):
     """
     Handle the result of a dbt command using the lookup of handler functions
-    @param command dbt command (e.g. dbt run command is 'run')
-    @param res: dbt runner result object
-    @param alert: Alert object
-    @return if success return rendered report, otherwise raise exception
     """
 
     if res.success:
@@ -231,7 +227,29 @@ def handle_dbt_result(command: str, res: dbtRunnerResult, alert: Alert):
 
 ## Add daily report logging to dbt app
 
+Do ...
+
+```md
+# Daily DBT Report (*{{extract_date}}*) :writing_hand:
+
+{{ run_report }}
+
+{{ test_report }}
+
+{{ freshness_report }}
+```
+
+And ...
+
 ```python
+def log_daily_report(run_report: str, test_report: str, freshness_report: str, alert: Alert):#
+    """
+    Log the formatted daily report of dbt results
+    """
+    extract_date = datetime.now(pytz.timezone('Europe/London')).strftime('%Y-%m-%d')
+    alert.log('daily-report.md', **{'extract_date': extract_date, 'run_report': run_report, 'test_report': test_report, 'freshness_report': freshness_report})
+
+
 # Initialise a alerting client 
 WEBHOOK_URL = os.environ.get('WEBHOOK_URL', '')
 if WEBHOOK_URL == '':
@@ -249,6 +267,8 @@ test_report, run_report = handle_dbt_result('build', res, discord)
 # Combine test results to create a daily report
 response = log_daily_report(run_report, test_report, freshness_report, discord)
 ```
+
+Then ...
 
 {{< img src="images/dbt-daily-report.png" >}}
 
