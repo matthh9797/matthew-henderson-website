@@ -38,6 +38,33 @@ There are several ways to recreate this article but to follow along line for lin
  - [VS Code Extension - Cloud Code](https://cloud.google.com/code) (For local development)
  - [Discord](https://discord.com/)
 
+## Project Structure
+
+```
+project
+│   app.py
+|   handlers.py  
+│
+└───utils
+│   │   alert.py
+│   │
+└───templates
+│   │   daily-report.md
+│   │   exception.md
+│   │
+│   └───success
+│       │   run.md
+│       │   test.md
+│       │   ...   │
+│   └───error
+│       │   run.md
+│       │   test.md
+│       │   ...
+|
+└───dbt
+│   │   ...
+```
+
 ## Set up a Webhook URL
 
 Discord, Slack and other messaging apps allow messages to channels via webhooks. Each has their own unique syntax for but in general the setup process is very similar. You can setup a discord webhook url easily by following the linked articles.
@@ -172,39 +199,58 @@ The dbtRunnerResult class does not raise errors or handle results of invocations
 We can handle these situations programmatically like so:
 
 ```python
-def handle_dbt_result(res: dbtRunnerResult, command: str, webhook_url: str):
-    """Log based DBT result"""
+LOOKUP_HANDLER = {
+    'freshness': handlers.handle_freshness,
+    'snapshot': handlers.handle_snapshot,
+    'test': handlers.handle_test,
+    'run': handlers.handle_run,
+    'build': handlers.handle_build
+}
+
+
+def handle_dbt_result(command: str, res: dbtRunnerResult, alert: Alert):
+    """
+    Handle the result of a dbt command using the lookup of handler functions
+    @param command dbt command (e.g. dbt run command is 'run')
+    @param res: dbt runner result object
+    @param alert: Alert object
+    @return if success return rendered report, otherwise raise exception
+    """
 
     if res.success:
         logging.info('Invocation completed without error')
-        return lookup_handler[command](res, webhook_url)
+        return LOOKUP_HANDLER[command](res, alert)
     else:
         if res.exception is None:
-            lookup_handler[command](res, webhook_url)
-            raise SystemError('Invocation completed with at least one handled error (e.g. test failure, model build error)')
+            LOOKUP_HANDLER[command](res, alert)
+            raise 'Invocation completed with at least one handled error (e.g. test failure, model build error)'
         else:
-            log_template_to_discord(env, 'exception.md', webhook_url, **{'result': res})
-            raise SystemError(f'Unhandled error. Invocation did not complete, and returns no results. Exception: {res.exception}')
+            alert.log('exception.md', **{'result': res})
+            raise f'Unhandled error. Invocation did not complete, and returns no results. Exception: {res.exception}'
 ```
 
-<!-- ```
-project
-│   app.py
-|   handlers.py  
-│
-└───templates
-│   │   daily-report.md
-│   │   exception.md
-│   │
-│   └───success
-│       │   run.md
-│       │   test.md
-│       │   ...   │
-│   └───error
-│       │   run.md
-│       │   test.md
-│       │   ...
-``` -->
+## Add daily report logging to dbt app
+
+```python
+# Initialise a alerting client 
+WEBHOOK_URL = os.environ.get('WEBHOOK_URL', '')
+if WEBHOOK_URL == '':
+    logging.warning('No WEBHOOK_URL environment variable, alerts will not be sent.')
+discord = Alert(WEBHOOK_URL)
+
+...
+
+# Compile reports from the dbt build results
+res: dbtRunnerResult = dbt.invoke(['build'] + cli_args + target_arg)
+test_report, run_report = handle_dbt_result('build', res, discord)
+
+...
+
+# Combine test results to create a daily report
+response = log_daily_report(run_report, test_report, freshness_report, discord)
+```
+
+{{< img src="images/dbt-daily-report.png" >}}
 
 ## Conclusion
 
