@@ -1,7 +1,7 @@
 baseURL: https://mattanalytix.com/
 
 languageCode: en-us
-title: "MattAnalytix"
+title: "mattanalytix"
 
 # Use Hugo modules to add theme
 module:
