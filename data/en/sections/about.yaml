@@ -58,6 +58,11 @@ resourceLinks:
 # You can also show a circular bar indicating the level of expertise on a certain skill
 badges:
 - type: certification
+  name: dbt Developer
+  url: "https://credentials.getdbt.com/642ea1d9-90f3-4453-9cb0-50edf46bc0cb"
+  badge: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/124149244"
+
+- type: certification
   name: Google Cloud Machine Learning Engineer
   url: "https://www.credential.net/4bacc295-fc59-43e4-abde-b0b7ee36caae"
   badge: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/50163223"
@@ -73,13 +78,8 @@ badges:
 #   badge: "https://images.credly.com/size/680x680/images/e027514f-9d07-4b29-862f-fe21a8aaebf1/ae.png"
 
 - type: soft-skill-indicator
-  name: DBT
-  percentage: 85
-  color: orange
-
-- type: soft-skill-indicator
-  name: Python
-  percentage: 75
+  name: Looker
+  percentage: 80
   color: yellow
 
 - type: soft-skill-indicator
