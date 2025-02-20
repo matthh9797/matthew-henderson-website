@@ -6,8 +6,8 @@ greeting: "Hi, I am"
 image: "images/author/matthew.png"
 # give your some contact information. they will be used in the footer
 contactInfo:
-  email: "info@mattanalytix.com"
-  phone: "+44 7476 862080"
+  email: "hello@mattanalytix.com"
+  phone: "+44 7377 505589"
   github: matthh9797
   linkedin: matthew-henderson-986374bb
 
