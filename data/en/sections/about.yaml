@@ -29,11 +29,11 @@ summary: >
 socialLinks:
 - name: Email
   icon: "fas fa-envelope"
-  url: "info@mattanalytix.com"
+  url: "hello@mattanalytix.com"
 
 - name: Github
   icon: "fab fa-github"
-  url: "https://github.com/matthh9797"
+  url: "https://github.com/Mattanalytix"
 
 - name: Stackoverflow
   icon: "fab fa-stack-overflow"
