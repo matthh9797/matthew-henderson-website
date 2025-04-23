@@ -31,8 +31,19 @@ projects:
     Collaborating with operational teams, I mapped user journeys to define event logic, implemented rigorous testing and documentation, and created a Looker dashboard that
     now serves as a trusted operational reporting tool. This solution enables the business to track customer movement,
     identify underperforming sales channels, and make data-driven decisions with confidence.
-  tags: ["professional", "gcp", "dbt", "Looker"]
-  
+  tags: ["professional", "Jetty Technologies", "GCP", "dbt", "Looker"]
+
+- name: BEAM Modelling Process
+  # logo: /images/sections/skills/dbt.svg
+  role: Owner
+  timeline: "Feb 2024 - Feb 2024"
+  # repo: https://github.com/hossainemruz/toha
+  summary: >
+    To address inconsistent and duplicated reporting requests, I developed a lightweight intake process based on BEAM data modeling principles.
+    This involved collaborative sessions with stakeholders to define key user stories and metrics, an Excel mock dataset to map expected dimensions, and an ER model to assess feasibility.
+    The process improved clarity, reduced duplicate requests, and enabled better prioritisation — ultimately streamlining reporting workflows and strengthening alignment between data and business teams.
+  tags: ["professional", "Jetty Technologies", "BEAM", "ERD Editor"]
+
 - name: Junia Jungle Trekking Website
   logo: /images/sections/projects/junia.png
   role: Developer
