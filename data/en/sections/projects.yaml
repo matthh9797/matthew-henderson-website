@@ -75,7 +75,10 @@ projects:
   timeline: "Mar 2023 - Jun 2023"
   # repo: https://github.com/kubernetes/kubernetes # If your project is a public repo on GitHub, then provide this link. it will show star count.
   #url: ""  # If your project is not a public repo but it has a website or any external details url then provide it here. don't provide "repo" and "url" simultaneously.
-  summary: Website built using Hugo for a guest house offering jungle trekking in Gunung Leuser National Park, North Sumatra.
+  summary: >
+    I designed and developed a website for a jungle trekking company in Sumatra, aimed at boosting their online presence and increasing direct bookings. Over a 6-week sprint,
+    I led the project end-to-end — from photography and design to content strategy and marketing — gathering regular feedback to iterate quickly.
+    The result was a visually engaging, user-friendly site that significantly improved the company’s online booking rates and became a major driver of new income.
   tags: ["professional", "web-design", "hugo"]
 
 # - name: Fantasy Football Analytics
@@ -87,14 +90,14 @@ projects:
 #   summary: End-to-end data analytics project for analysing data from the Premier League Fantasy Football API. 
 #   tags: ["hobby", "gcp", "dbt", "cloud-run"]
 
-- name: PalmBloo
-  logo: /images/sections/projects/palmbloo.png
-  role: Owner
-  timeline: "Nov 2022 - Jun 2023"
-  repo: https://github.com/matthh9797/palmbloo
-  #url: ""
-  summary: Travel blogging website advertised on social media.
-  tags: ["hobby", "web-design", "hugo"]
+# - name: PalmBloo
+#   logo: /images/sections/projects/palmbloo.png
+#   role: Owner
+#   timeline: "Nov 2022 - Jun 2023"
+#   repo: https://github.com/matthh9797/palmbloo
+#   #url: ""
+#   summary: Travel blogging website advertised on social media.
+#   tags: ["hobby", "web-design", "hugo"]
 
 - name: Loyalty reporting pipeline
   logo: /images/sections/skills/dbt.svg
