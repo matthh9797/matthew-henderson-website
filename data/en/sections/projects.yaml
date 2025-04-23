@@ -21,10 +21,22 @@ buttons:
 
 # your projects
 projects:
-- name: Junia Jungle Trekking website
+- name: Trade Statistics Dashboard
+  # logo: /images/sections/skills/dbt.svg
+  role: Owner
+  timeline: "Aug 2024 - Sep 2024"
+  # repo: https://github.com/hossainemruz/toha
+  summary: >
+    I designed and built a unified data model in dbt to consolidate all customer "trade" events, including sales, package changes, and churn, into a single source of truth.
+    Collaborating with operational teams, I mapped user journeys to define event logic, implemented rigorous testing and documentation, and created a Looker dashboard that
+    now serves as a trusted operational reporting tool. This solution enables the business to track customer movement,
+    identify underperforming sales channels, and make data-driven decisions with confidence.
+  tags: ["professional", "gcp", "dbt", "Looker"]
+  
+- name: Junia Jungle Trekking Website
   logo: /images/sections/projects/junia.png
   role: Developer
-  timeline: "Mar 2023 - Present"
+  timeline: "Mar 2023 - Jun 2023"
   # repo: https://github.com/kubernetes/kubernetes # If your project is a public repo on GitHub, then provide this link. it will show star count.
   #url: ""  # If your project is not a public repo but it has a website or any external details url then provide it here. don't provide "repo" and "url" simultaneously.
   summary: Website built using Hugo for a guest house offering jungle trekking in Gunung Leuser National Park, North Sumatra.
@@ -42,7 +54,7 @@ projects:
 - name: PalmBloo
   logo: /images/sections/projects/palmbloo.png
   role: Owner
-  timeline: "Nov 2022 - Present"
+  timeline: "Nov 2022 - Jun 2023"
   repo: https://github.com/matthh9797/palmbloo
   #url: ""
   summary: Travel blogging website advertised on social media.
@@ -51,7 +63,7 @@ projects:
 - name: Loyalty reporting pipeline
   logo: /images/sections/skills/dbt.svg
   role: Owner
-  timeline: "Jun 2019 - Present"
+  timeline: "Jun 2019 - Jun 2020"
   # repo: https://github.com/hossainemruz/toha
   summary: >
     Analytics engineering business reporting pipeline built for a large telecommunications company. Written using best-practice data modelling, robust testing, 
