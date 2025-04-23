@@ -33,6 +33,18 @@ projects:
 
   tags: ["professional", "Jetty Technologies", "GCP", "Terraform", "Cloud Build"]
 
+- name: Proactive Data Quality Monitoring
+  # logo: /images/sections/skills/dbt.svg
+  role: Owner
+  timeline: "Nov 2024 - Dec 2024"
+  # repo: https://github.com/hossainemruz/toha
+  summary: >
+    To address persistent data quality issues, I implemented the dq-utils dbt package to log failing test results and link them to the original source data.
+    I then built a Looker dashboard that provided real-time visibility into data issues, trend analysis, row-level drilldowns, and Jira integration for issue tracking.
+    This solution enabled proactive data ownership, alerting system owners when quality thresholds were breached, significantly improving the overall reliability of our data.
+
+  tags: ["professional", "Jetty Technologies", "dbt", "JIRA", "Looker"]
+
 - name: Trade Statistics Dashboard
   # logo: /images/sections/skills/dbt.svg
   role: Owner
@@ -44,6 +56,7 @@ projects:
     now serves as a trusted operational reporting tool. This solution enables the business to track customer movement,
     identify underperforming sales channels, and make data-driven decisions with confidence.
   tags: ["professional", "Jetty Technologies", "GCP", "dbt", "Looker"]
+
 
 - name: BEAM Modelling Process
   # logo: /images/sections/skills/dbt.svg
