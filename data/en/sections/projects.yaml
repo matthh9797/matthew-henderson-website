@@ -21,6 +21,18 @@ buttons:
 
 # your projects
 projects:
+- name: GCP Multi-Tenancy
+  # logo: /images/sections/skills/dbt.svg
+  role: Owner
+  timeline: "Jan 2025 - Mar 2025"
+  # repo: https://github.com/hossainemruz/toha
+  summary: >
+    To support the transition from a single-client setup to a multi-client model, I built a centralized Terraform repository for our analytics infrastructure on GCP.
+    Working closely with Google’s DevOps team, I implemented CI/CD using Cloud Build to automate and standardize environment creation.
+    This transformation allowed us to scale efficiently, spin up client-specific environments with ease, and significantly improved the reliability of our cloud infrastructure.
+
+  tags: ["professional", "Jetty Technologies", "GCP", "Terraform", "Cloud Build"]
+
 - name: Trade Statistics Dashboard
   # logo: /images/sections/skills/dbt.svg
   role: Owner
