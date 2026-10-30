@@ -39,6 +39,10 @@ experiences:
   - designation: Analytics Engineer
     start: Jan 2026
     end: Oct 2026
+    responsibilities:
+    - Developed and maintained analytical data models supporting business intelligence and fraud analytics.
+    - Contributed to data platform and orchestration improvements to make analytical workflows more reliable and maintainable.
+    - Applied dimensional modelling principles to improve the consistency and accessibility of analytical data.
 
 - company:
     name: Building Radar
