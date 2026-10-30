@@ -4,5 +4,18 @@
 
 An example hugo static site with Toha theme.
 
+## Run locally
+
+Install Hugo Extended, Go, and Node.js/npm, then from the repository root run:
+
+```sh
+hugo mod tidy
+hugo mod npm pack
+npm install
+hugo server
+```
+
+Open <http://localhost:1313/>. Hugo watches for changes and rebuilds the site; press Ctrl-C to stop the server.
+
 Attributions:
 - <a href='https://www.freepik.com/vectors/business'>Business vector created by studiogstock - www.freepik.com</a>
