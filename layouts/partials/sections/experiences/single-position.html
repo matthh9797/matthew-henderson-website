@@ -11,6 +11,7 @@
     </div>
     <!-- Add company overview -->
     <p>{{ .company.overview | markdownify }}</p>
+    {{ partial "sections/experiences/technologies.html" .company.technologies }}
 
     <!-- Add the key achievements handled at this position -->
     {{ if $position.achievements }}

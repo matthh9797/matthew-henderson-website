@@ -17,6 +17,17 @@ experiences:
       Working within the Advanced Analytics team, developing and improving the infrastructure, data models and analytical tools that support business intelligence and fraud analytics.
 
       My work spans data platform engineering, orchestration, dimensional modelling and semantic layer development, with a focus on improving the reliability, maintainability and accessibility of analytical data.
+    technologies:
+    - Python
+    - SQL
+    - dbt
+    - Apache Airflow
+    - Astronomer Cosmos
+    - Docker
+    - Amazon Redshift
+    - Cube
+    - Tableau
+    - Elementary
   positions:
   - designation: Senior Analytics Engineer
     start: Oct 2026
@@ -36,6 +47,13 @@ experiences:
       Worked on data engineering and applied AI systems supporting construction intelligence, including large-scale multilingual news processing and production LLM applications.
 
       My work involved developing LLM-powered services, building evaluation frameworks, improving data pipelines and implementing monitoring to improve the reliability of automated information extraction.
+    technologies:
+    - Python
+    - LLMs
+    - Langfuse
+    - APIs
+    - Sentry
+    - Data pipelines
   positions:
   - designation: Data Engineer
     start: Jul 2025
@@ -55,6 +73,18 @@ experiences:
       Designed and developed a cloud-native analytics platform on Google Cloud, covering the full data lifecycle from ingestion and orchestration to transformation, dimensional modelling and business intelligence.
 
       Focused on creating reliable, maintainable and cost-effective infrastructure while enabling internal teams and customers to access consistent analytical data.
+    technologies:
+    - Python
+    - SQL
+    - BigQuery
+    - dbt
+    - Dagster
+    - dlt
+    - Looker
+    - Terraform
+    - Cloud Run
+    - Pub/Sub
+    - Cloud Build
   positions:
   - designation: Senior Data Engineer
     start: Oct 2024
