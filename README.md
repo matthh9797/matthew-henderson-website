@@ -15,7 +15,7 @@ npm install
 hugo server
 ```
 
-Open <http://localhost:1313/>. Hugo watches for changes and rebuilds the site; press Ctrl-C to stop the server.
+Open <http://localhost:1313/>. If `hugo server` reports that the address is already in use, a server is already running on that port; open the existing site or start another with `hugo server --port 1314` and open <http://localhost:1314/>. Hugo watches for changes and rebuilds the site; press Ctrl-C to stop the server.
 
 Attributions:
 - <a href='https://www.freepik.com/vectors/business'>Business vector created by studiogstock - www.freepik.com</a>
