@@ -6,7 +6,7 @@ An example hugo static site with Toha theme.
 
 ## Run locally
 
-Install Hugo Extended, Go, and Node.js/npm, then from the repository root run:
+Install Hugo Extended 0.147.3, Go 1.21 or later, and Node.js/npm. From the repository root run:
 
 ```sh
 hugo mod tidy
