@@ -1,0 +1,9 @@
+{{ with . }}
+  <div class="experience-technologies mb-2">
+    <div>
+      {{ range . }}
+        <span class="badge btn-info mr-1 mb-1">{{ . }}</span>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

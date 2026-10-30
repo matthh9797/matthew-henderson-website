@@ -17,8 +17,17 @@ experiences:
       Working within the Advanced Analytics team, developing and improving the infrastructure, data models and analytical tools that support business intelligence and fraud analytics.
 
       My work spans data platform engineering, orchestration, dimensional modelling and semantic layer development, with a focus on improving the reliability, maintainability and accessibility of analytical data.
-
-      Technologies: Python, SQL, dbt, Apache Airflow, Astronomer Cosmos, Docker, Amazon Redshift, Cube, Tableau, Elementary.
+    technologies:
+    - Python
+    - SQL
+    - dbt
+    - Apache Airflow
+    - Astronomer Cosmos
+    - Docker
+    - Amazon Redshift
+    - Cube
+    - Tableau
+    - Elementary
   positions:
   - designation: Senior Analytics Engineer
     start: Oct 2026
@@ -30,6 +39,10 @@ experiences:
   - designation: Analytics Engineer
     start: Jan 2026
     end: Oct 2026
+    responsibilities:
+    - Developed and maintained analytical data models supporting business intelligence and fraud analytics.
+    - Contributed to data platform and orchestration improvements to make analytical workflows more reliable and maintainable.
+    - Applied dimensional modelling principles to improve the consistency and accessibility of analytical data.
 
 - company:
     name: Building Radar
@@ -38,10 +51,15 @@ experiences:
       Worked on data engineering and applied AI systems supporting construction intelligence, including large-scale multilingual news processing and production LLM applications.
 
       My work involved developing LLM-powered services, building evaluation frameworks, improving data pipelines and implementing monitoring to improve the reliability of automated information extraction.
-
-      Technologies: Python, LLMs, Langfuse, APIs, Sentry, data pipelines.
+    technologies:
+    - Python
+    - LLMs
+    - Langfuse
+    - APIs
+    - Sentry
+    - Data pipelines
   positions:
-  - designation: Data Engineer
+  - designation: AI Engineer
     start: Jul 2025
     end: Jan 2026
     responsibilities:
@@ -59,8 +77,18 @@ experiences:
       Designed and developed a cloud-native analytics platform on Google Cloud, covering the full data lifecycle from ingestion and orchestration to transformation, dimensional modelling and business intelligence.
 
       Focused on creating reliable, maintainable and cost-effective infrastructure while enabling internal teams and customers to access consistent analytical data.
-
-      Technologies: Python, SQL, BigQuery, dbt, Dagster, dlt, Looker, Terraform, Cloud Run, Pub/Sub, Cloud Build.
+    technologies:
+    - Python
+    - SQL
+    - BigQuery
+    - dbt
+    - Dagster
+    - dlt
+    - Looker
+    - Terraform
+    - Cloud Run
+    - Pub/Sub
+    - Cloud Build
   positions:
   - designation: Senior Data Engineer
     start: Oct 2024
@@ -96,8 +124,20 @@ experiences:
     overview: >
       Forecast is a data consultancy with high profile clients across several industries. For the majority of time, my client was the loyalty department of one of the largest 
       companies in the UK telecommunications industry.
+    technologies:
+    - Python
+    - SQL
+    - Tableau
+    - dbt
+    - BigQuery
+    - Google Cloud Platform
+    - Cloud Run
+    - Polars
+    - Dash
+    - scikit-learn
+    - XGBoost
   positions:
-  - designation: Analyst
+  - designation: Data Analyst
     start: Jan 2021
     end: Nov 2022
     # don't provide end date if you are currently working there. It will be replaced by "Present"

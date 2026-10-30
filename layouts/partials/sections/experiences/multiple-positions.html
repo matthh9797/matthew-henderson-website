@@ -12,6 +12,7 @@
         </p>
         <!-- Add company overview -->
         <p>{{ .company.overview | markdownify }}</p>
+        {{ partial "sections/experiences/technologies.html" .company.technologies }}
     </div>
     <!-- Add the positions information -->
     <div class="positions">

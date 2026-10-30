@@ -25,55 +25,35 @@ projects:
   summary: |
     Modernised the orchestration of analytical data pipelines by establishing a dedicated Apache Airflow environment for the Advanced Analytics team and migrating dbt execution from a legacy orchestration setup to Astronomer Cosmos.
 
-    The project involved designing a new repository and containerised execution environment, integrating dbt models with Airflow and establishing independently managed deployment workflows.
-
-    A key objective was to give the analytics team greater ownership of its data pipelines while improving maintainability and reducing dependencies on shared infrastructure.
-
-    The resulting architecture provides a more flexible foundation for managing, deploying and monitoring analytical transformations.
+    Designed a repository and containerised execution environment that integrates dbt with Airflow and supports independent deployments, giving the team greater ownership while reducing reliance on shared infrastructure.
   tags: ["professional", "Veriff", "Apache Airflow", "Astronomer Cosmos", "dbt", "Docker", "Python"]
 
 - name: Enterprise Semantic Layer
   summary: |
-    Led an initiative to evaluate and introduce a centralised semantic layer using Cube, with the aim of improving consistency in analytical metrics and simplifying access to business data.
+    Led the evaluation and proof of concept for Cube as a centralised semantic layer, exploring reusable metrics, pre-aggregations, BI integrations and AI-assisted analytical querying. Authored an RFC documenting the architecture and trade-offs.
 
-    Developed a proof of concept integrating Cube with the existing data warehouse, exploring reusable metric definitions, pre-aggregations and integration with business intelligence tools.
-
-    The project also explored AI-assisted analytical querying, investigating how a semantic layer could provide a governed interface between business data and natural-language analytical applications.
-
-    Authored a technical RFC documenting the proposed architecture, implementation considerations and trade-offs, providing a foundation for further evaluation and adoption.
+    I am also actively involved in the rollout, helping establish a governed, consistent way for teams and analytical applications to access business data.
   tags: ["professional", "Veriff", "Cube", "Amazon Redshift", "SQL", "Tableau", "AI integrations"]
 
 - name: Fraud Risk Analytics
   summary: |
     Developed analytical data models to support the evaluation and comparison of fraud risk scoring systems used within identity verification workflows.
 
-    The work focused on structuring complex verification data to enable consistent analysis of different fraud detection approaches, including global, network and device-based risk scoring models.
-
-    Applied dimensional modelling principles to represent verification events, fraud signals and analytical outcomes, supporting comparisons of model effectiveness and investigation of overlapping detection mechanisms.
-
-    The resulting models provide a foundation for understanding the contribution of different fraud detection signals and supporting data-driven decisions about fraud prevention strategies.
+    Applied dimensional modelling to connect verification events, global, network and device-based fraud signals, and outcomes, enabling consistent comparisons of model effectiveness and overlapping detection mechanisms.
   tags: ["professional", "Veriff", "SQL", "dbt", "Amazon Redshift", "Dimensional Modelling"]
 
 - name: Production LLM Services
   summary: |
     Developed and improved production LLM-powered services used to extract and structure information from construction industry data.
 
-    The services supported a range of information processing tasks, including email classification, construction project phase extraction and automated generation of article titles and summaries.
-
-    The work involved integrating language models into existing processing workflows, handling structured outputs and improving the consistency and reliability of automated extraction.
-
-    These services formed part of a broader data processing architecture designed to transform large volumes of unstructured information into useful, structured construction intelligence.
+    Integrated language models and structured outputs into existing workflows for email classification, project phase extraction and article titles and summaries, improving the consistency of extraction from unstructured information.
   tags: ["professional", "Building Radar", "Python", "LLMs", "APIs", "Structured Outputs"]
 
 - name: LLM Evaluation Framework
   summary: |
     Developed a centralised proof-of-concept framework for evaluating the quality and reliability of production LLM services.
 
-    The framework used Langfuse to support structured evaluation workflows, combining LLM-as-judge techniques with deterministic and quantitative metrics to assess generated outputs.
-
-    The objective was to establish a reusable approach to measuring model performance, identifying quality regressions and comparing changes across different LLM-powered applications.
-
-    By separating evaluation logic from individual services, the project explored a more consistent and maintainable approach to validating LLM behaviour throughout the development lifecycle.
+    Using Langfuse, the framework combines LLM-as-judge techniques with deterministic and quantitative metrics. Separating evaluation logic from individual services provides a reusable way to assess performance, identify regressions and compare changes across applications.
   tags: ["professional", "Building Radar", "Python", "Langfuse", "LLM-as-Judge", "Evaluation Metrics"]
 
 - name: GCP Multi-Tenancy
@@ -135,6 +115,15 @@ projects:
     I led the project end-to-end — from photography and design to content strategy and marketing — gathering regular feedback to iterate quickly.
     The result was a visually engaging, user-friendly site that significantly improved the company’s online booking rates and became a major driver of new income.
   tags: ["professional", "web-design", "hugo"]
+
+- name: Fantasy Football Analytics Platform
+  role: Owner
+  timeline: "In progress"
+  summary: |
+    I’m building an end-to-end Fantasy Premier League analytics platform, ingesting data from the FPL API into BigQuery with dlt and Dagster, then transforming it with dbt.
+
+    A Cube semantic layer powers player and team analysis in an Astro dashboard, bringing data engineering, modelling and visualisation together.
+  tags: ["hobby", "Python", "Dagster", "dlt", "dbt", "BigQuery", "Cube", "Astro"]
 
 # - name: Fantasy Football Analytics
 #   logo: /images/sections/projects/tensorflow.png

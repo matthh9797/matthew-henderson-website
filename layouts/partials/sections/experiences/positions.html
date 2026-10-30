@@ -1,0 +1,60 @@
+<div class="col-10 col-lg-8">
+  <div class="experience-entry-heading">
+    {{ with .company.logo }}
+      {{ $logoImage := resources.Get . }}
+      {{ if $logoImage }}
+        <div class="logo-holder">
+          <img class="company-logo light-logo" src="{{ $logoImage.RelPermalink }}" alt="{{ $.company.name }}" />
+          {{ with $.company.darkLogo }}
+            {{ $darkLogoImage := resources.Get . }}
+            {{ if $darkLogoImage }}
+              <img class="company-logo dark-logo" src="{{ $darkLogoImage.RelPermalink }}" alt="{{ $.company.name }}" />
+            {{ end }}
+          {{ end }}
+        </div>
+      {{ end }}
+    {{ end }}
+    {{ $oldestPosition := index (last 1 .positions) 0 }}
+    {{ $mostRecentPosition := index (first 1 .positions) 0 }}
+    <div class="company-heading">
+      <h5>
+        {{ if .company.url }}
+          <a href="{{ .company.url }}" title="{{ .company.name }}" target="_blank" rel="noopener">{{ .company.name }}</a>
+        {{ else }}
+          {{ .company.name }}
+        {{ end }}
+      </h5>
+      <p class="text-muted">
+        {{ $oldestPosition.start }} - {{ if $mostRecentPosition.end }}{{ $mostRecentPosition.end }}{{ else }}{{ i18n "present" }}{{ end }}
+      </p>
+    </div>
+    <p class="text-muted"><i class="fa-solid fa-location-dot"></i> {{ .company.location }}</p>
+    <p>{{ .company.overview | markdownify }}</p>
+    {{ partial "sections/experiences/technologies.html" .company.technologies }}
+  </div>
+
+  <div class="positions">
+    {{ range .positions }}
+      <div class="company-heading">
+        <h5 class="designation">{{ .designation }}</h5>
+        <p class="text-muted">{{ .start }} - {{ if .end }}{{ .end }}{{ else }}{{ i18n "present" }}{{ end }}</p>
+      </div>
+      {{ if .achievements }}
+        <h6 class="text-heading">Key Achievements</h6>
+        <ul class="justify-content-around">
+          {{ range .achievements }}
+            <li>{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      {{ end }}
+      {{ if .responsibilities }}
+        <h6 class="text-heading">{{ i18n "responsibilities" }}</h6>
+        <ul class="justify-content-around">
+          {{ range .responsibilities }}
+            <li>{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    {{ end }}
+  </div>
+</div>
