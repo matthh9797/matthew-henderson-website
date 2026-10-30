@@ -116,6 +116,15 @@ projects:
     The result was a visually engaging, user-friendly site that significantly improved the company’s online booking rates and became a major driver of new income.
   tags: ["professional", "web-design", "hugo"]
 
+- name: Fantasy Football Analytics Platform
+  role: Owner
+  timeline: "In progress"
+  summary: |
+    I’m building an end-to-end Fantasy Premier League analytics platform, ingesting data from the FPL API into BigQuery with dlt and Dagster, then transforming it with dbt.
+
+    A Cube semantic layer powers player and team analysis in an Astro dashboard, bringing data engineering, modelling and visualisation together.
+  tags: ["hobby", "Python", "Dagster", "dlt", "dbt", "BigQuery", "Cube", "Astro"]
+
 # - name: Fantasy Football Analytics
 #   logo: /images/sections/projects/tensorflow.png
 #   role: Owner
