@@ -124,8 +124,20 @@ experiences:
     overview: >
       Forecast is a data consultancy with high profile clients across several industries. For the majority of time, my client was the loyalty department of one of the largest 
       companies in the UK telecommunications industry.
+    technologies:
+    - Python
+    - SQL
+    - Tableau
+    - dbt
+    - BigQuery
+    - Google Cloud Platform
+    - Cloud Run
+    - Polars
+    - Dash
+    - scikit-learn
+    - XGBoost
   positions:
-  - designation: Analyst
+  - designation: Data Analyst
     start: Jan 2021
     end: Nov 2022
     # don't provide end date if you are currently working there. It will be replaced by "Present"
