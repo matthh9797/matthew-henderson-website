@@ -1,115 +1,143 @@
 ---
-title: "Testing a Free Football News Pipeline with dlt and DuckDB"
+title: "Finding Football Tactics in Free News Sources"
 date: 2026-11-07
-description: "A small local experiment with Sky Sports and BBC RSS feeds, persistent fetch limits, and two article text extractors."
-summary: "Can RSS and local Python tools provide useful football reporting without a paid news API? I tested discovery, article extraction and once-only URL fetching with dlt and DuckDB."
-tags: ["Python", "DuckDB", "dlt", "Football", "Data Engineering"]
+description: "Choosing free sources for tactical evidence that could improve match and player predictions, using a small local dlt, DuckDB and vector-search experiment."
+summary: "Premier League tactical analysis proved the strongest starting point in our sample, supported by Sky reporting and UEFA match analysis. The useful information is who uses a tactic, against whom and under what conditions—not simply whether an article mentions football."
+tags: ["Football", "Python", "DuckDB", "dlt", "Semantic Search"]
 categories: ["Experiments"]
+hero: images/football-tactics-hero.png
 menu:
   sidebar:
-    name: "Free Football News Pipeline"
+    name: "Football Tactics from News"
     identifier: free-football-news-experiment
     parent: datascience
     weight: 15
 draft: false
 ---
 
-I wanted to add football reporting to my fantasy football project: squad news, injury updates, press conference comments and predicted formations. My existing pipeline already brings structured FPL data into BigQuery through Python, dlt, Dagster and dbt. It also includes the FPL player news and availability fields. Articles could supply the context those short updates miss.
+**The most useful sources in this experiment were PremierLeague.com's tactical analysis, Sky Sports reporting and UEFA's detailed match analysis.** BBC remains a useful supplementary source when a particular article explains tactics or player roles. We decided against a paid news provider for this stage.
 
-The immediate constraint was simple: no new spending. Before choosing a news provider or generating embeddings, I wanted to find out whether a small Python script could discover relevant articles and extract useful text for free.
+The purpose is to find information that could improve match and player predictions: which teams defend deep, when they press aggressively, how they adapt to particular opponents, and which players gain or lose attacking opportunities as a result. Injuries are outside this news experiment because our existing FPL data already supplies availability information.
 
-The first experiment worked technically. Two RSS feeds supplied 95 article URLs, and three selected pages yielded substantial text. The harder question was which articles deserved to be fetched in the first place.
+The first tests confirmed that free article retrieval and local semantic search are practical. They also showed that finding similar language is easier than correctly identifying who used a tactic. We have evidence worth developing into predictive features, but have not yet demonstrated better forecasts.
 
-## A deliberately small experiment
+## The question we actually wanted to answer
 
-I used the [Sky Sports Premier League feed](https://www.skysports.com/rss/11661) as the main candidate and [BBC football](https://feeds.bbci.co.uk/sport/football/rss.xml) as a broader comparison. This was one feed snapshot from each source on 7 November 2026, not a coverage study across a season.
+Consider Liverpool facing a team likely to defend in a low block. If that Liverpool side struggles to create good chances against deep defences, the matchup might affect its goal expectation. That is a testable interaction between two playing styles.
 
-The local flow was:
+Or consider Newcastle under Eddie Howe at St James' Park. An aggressive press might create turnovers and opportunities for attackers. The same team away from home, or against an opponent comfortable playing through pressure, might behave differently.
+
+Those examples suggest the information we need:
+
+| Information to look for | Potential use in a prediction |
+| --- | --- |
+| Defensive height and compactness: low block, mid-block or high line | Describe the space an opponent allows and the attacking problems it presents |
+| Pressing approach and effectiveness | Identify turnover opportunities and exposure when a press is beaten |
+| Direct play, transitions and counterattacks | Describe how a team is likely to create chances |
+| Ability or difficulty playing through a press or deep defence | Represent a specific tactical matchup |
+| Changes by venue, opponent, manager or match situation | Avoid assigning one permanent style to a club |
+| Player role and attacking responsibility | Connect a team approach to individual shot, goal or assist opportunities |
+
+These are candidate features. Their direction and size must be learned from data rather than assigned from a convincing narrative.
+
+## How we narrowed the search
+
+We began with a Sky Premier League RSS feed and a broader BBC football feed. Together, their snapshots supplied 95 entries. A basic headline-and-summary filter found 13 BBC matches and no Sky matches, but it was looking for broad terms such as squad, injury, preview and return.
+
+That filter was poorly aligned with the task. England selection reporting passed, while a manually selected Sky article contained useful attacking commentary despite failing the filter. More matching headlines would not necessarily mean more predictive information.
+
+We changed the selection criteria to tactical questions: **who defends deep, who presses, how they attack, how opponents adapt, and what changes at home or away?** We then researched five specific articles about Liverpool's low-block encounters and Newcastle's pressing and opponent-specific adaptations.
+
+All five could be retrieved and processed locally, giving us eight saved articles in total. This was a deliberately selected exploratory sample, not a measurement of each publisher's overall coverage.
+
+For a continuing collection, RSS is one discovery channel. The tactical sample shows why we should also target analysis sections and specific team-and-tactic searches. Candidate searches include `Newcastle home away pressing`, `Liverpool opponents low block`, and `Newcastle Arsenal tactical analysis`. Those are examples of the narrower search we tested manually, not an automated discovery service we have already deployed.
+
+## Which sources we settled on
+
+| Source | Role in our collection | Reason for the choice |
+| --- | --- | --- |
+| **PremierLeague.com tactical analysis** | Primary starting point | The selected articles connected tactical descriptions to opponents, venue and supporting statistics. This was the closest fit to our prediction questions. |
+| **Sky Sports** | Supporting reporting and manager comments | Provides statements about tactical problems, opposition approaches and intended changes. We need to distinguish a manager's explanation from independently measured performance. |
+| **UEFA technical match analysis** | Detailed examples and counter-evidence | Explains how particular tactical encounters worked, including successful responses to low blocks. European examples need their competition context preserved. |
+| **BBC Sport** | Targeted supplement | Some articles contain useful player-role analysis; the broad football feed also supplied material outside our tactical scope. Select the article rather than accepting the entire feed. |
+
+This is a source shortlist for the next experiment. It is based on the material we inspected, not a comprehensive quality ranking. We have not established continuous coverage of every club or fixture.
+
+### Useful articles to inspect
+
+- [Premier League: Newcastle's home-versus-away pressing, December 2023](https://www.premierleague.com/en/news/3814250). A useful historical example combining tactical explanation and measurable differences.
+- [Premier League: Newcastle's adaptations against Arsenal, May 2025](https://www.premierleague.com/en/news/4309775/analysis-arsnew). Describes deeper defending and more direct play against a specific opponent, despite the team's usual pressing identity.
+- [Premier League: Newcastle's away difficulties, November 2025](https://www.premierleague.com/en/news/4455877/why-are-newcastle-struggling-away-from-home). Connects venue to pressing structure and attacking output.
+- [Sky: Slot on opponents' low blocks and long balls, October 2025](https://www.skysports.com/football/news/13456544/arne-slot-liverpool-must-find-a-way-to-cope-with-opponents-low-block-and-long-balls-tactics-amid-premier-league-slump). Identifies opposition approaches and attempted adaptations. The team using the low block is the opponent, not Liverpool.
+- [UEFA: Liverpool overcoming Atletico's low block, September 2025](https://www.uefa.com/uefachampionsleague/news/029d-1ec0f6abc563-d1255d1332f9-1000--in-the-zone-how-liverpool-bypassed-atleti-s-low-block/). Important counter-evidence: a reported weakness should not become an assumption that Liverpool always struggle.
+
+### Examples we would exclude or use differently
+
+[BBC's Palmer England-selection article](https://www.bbc.co.uk/sport/football/articles/c9e8ll62rp68o) is a poor input for club tactical matchups. It discusses a different selection context and does not identify a club opponent's defensive plan.
+
+[BBC's Anderson profile](https://www.bbc.co.uk/sport/football/articles/cqde8w0k2pz1o) is more useful for a player-role feature than for predicting a low block. That distinction matters: an article can be useful for one feature and unsuitable for another.
+
+[Sky's later Liverpool chance-creation article](https://www.skysports.com/football/news/13608882/liverpool-andoni-iraola-demands-creativity-over-control-to-solve-premier-league-scoring-problems) contains attacking context, but its retrieved passage did not establish a low-block matchup. Its different manager and time period also make it unsuitable evidence for a Slot-era profile.
+
+## What Newcastle's home and away comparison tells us
+
+![Newcastle home and away pressing in a historical 2023/24 snapshot](images/newcastle_pressing.png)
+
+The [December 2023 Premier League analysis](https://www.premierleague.com/en/news/3814250) reported 12.6 pressed sequences per 90 at home versus 12.1 away, but 11.3 high turnovers versus 7.3. Similar pressing frequency produced different returns.
+
+This is descriptive evidence from that historical sample, without adjustment for opponent strength. It shows why we should record both pressing intent and effectiveness. It also shows why a single “high-press team” category would lose information relevant to a particular fixture.
+
+The [Arsenal analysis](https://www.premierleague.com/en/news/4309775/analysis-arsnew) adds a second lesson: Newcastle could deliberately adopt a deeper defensive approach and more direct passing for an opponent. Team, manager, venue and opponent belong together in the record.
+
+## Where vector search helped—and where it failed
+
+We divided the eight article bodies into 106 overlapping passages and generated embeddings locally. DuckDB ranked passages against six tactical questions covering low-block defending, pressing, direct attacks, bypassing presses, facing low blocks and home/away differences.
+
+The strongest high-press result retrieved Newcastle's pressing comparison. The home/away query also found a relevant Newcastle analysis. However, the low-block-use query retrieved Slot describing opposition defences. Another query ranked general chance-creation commentary above an explicit low-block report.
+
+Vector search therefore helped locate candidate evidence, but did not reliably establish the tactical claim. The next step is to identify the actor, opponent, context and supporting statement. A formation alone is also insufficient: a 5-4-1 shape does not tell us how high the team defends.
+
+<details>
+<summary>View the exploratory retrieval scores</summary>
+
+![Similarity between tactical questions and the best passage in each article](images/tactical_retrieval.png)
+
+The scores show related language. They are not probabilities of a tactic, automatic team labels, or forecast adjustments. The overlap between relevant and misleading matches is part of the result.
+
+</details>
+
+## Turning reporting into predictive information
+
+The record we want is an evidence-backed tactical claim with a source URL, publication time, match or period described, team, opponent, manager, venue and whether it is an observation or prediction.
+
+For example, Newcastle defending deeper against Arsenal is an opponent-specific observation. Liverpool encountering a low block describes an opposition tactic. Those claims should remain separate when grouping similar tactical evidence.
+
+The proposed prediction flow is:
 
 ```text
-RSS snapshots
-    → headline and summary filtering
-    → persistent URL reservation
-    → bounded article retrieval
-    → saved HTTP response
-    → two local text extractors
-    → dlt load into DuckDB
+Relevant article passage
+    → verified tactical claim and context
+    → likely team approach for a future fixture
+    → interaction with the opponent's attacking or defensive profile
+    → test against baseline goal and player-performance predictions
 ```
 
-[dlt](https://dlthub.com/docs/dlt-ecosystem/destinations/duckdb) loaded discoveries, extracted articles and request records into DuckDB. A separate DuckDB ledger reserved URLs before network requests. Raw response files stayed on disk so I could change the extraction logic without downloading the articles again.
+We have tested retrieval; automatic claim extraction and the prediction steps remain future work. Only information available before kickoff should enter a forecast. Manager changes and historical publication dates need careful handling, including pages whose embedded tables may have been updated later.
 
-There were no paid news APIs, BigQuery jobs, embedding calls or LLM calls. This experiment incurred no service charges; that does not imply a later hosted version would have no operating costs.
+We would then test whether tactical features add information beyond existing team strength, recent performance and home advantage. Any effect on player forecasts should reflect that player's role and expected opportunities rather than apply an equal reduction to every player.
 
-## What the feeds returned
+## Keeping the experiment free and repeatable
 
-| Source | Feed entries inspected | Keyword matches | Article bodies obtained |
-| --- | ---: | ---: | ---: |
-| Sky Premier League | 20 | 0 | 1, manually selected |
-| BBC football | 75 | 13 | 2 |
+The prototype used Python, [dlt with DuckDB](https://dlthub.com/docs/dlt-ecosystem/destinations/duckdb), local text extraction and local embeddings. No paid news API, hosted inference or BigQuery jobs were used. Raw responses and vectors were cached so parser and search changes could be replayed without fetching articles again.
 
-The filter looked for phrases such as injury, team news, squad, lineup, formation, fitness, suspension and preview. It also included broad terms such as return. Live headlines, betting, odds and transfer gossip were excluded by title.
+Article requests required an explicit allowance, with a maximum of five new attempts per run and a default of ten per UTC day. Previously attempted normalized URLs were skipped, including failed requests. This controls repeated fetching, but deliberately misses later edits to an already fetched page. Checking robots.txt did not establish full-text processing or redistribution rights, which remain a production requirement to resolve.
 
-This exposed a useful weakness immediately. England selection reporting could match the squad and injury terms, even though my main interest was Premier League availability. A general player profile could match the word return without being useful pre-deadline news.
+## Findings and source decision
 
-Sky's twenty current entries produced no matches. That does not establish that Sky lacks relevant reporting: the feed is short, the sample covered one moment, and the filter was crude. I manually selected a Sky article about Liverpool's creativity and scoring problems to test page extraction independently of the relevance filter.
+**We settled on PremierLeague.com tactical analysis as the primary starting point, Sky Sports as supporting reporting, UEFA for detailed match examples, and BBC as a selective supplement.** A paid news aggregator is unnecessary for the next stage of this experiment.
 
-The next discovery experiment should collect snapshots over several matchdays and check team, fixture and article-type context. Increasing the article allowance now would mostly increase the amount of material I have to reject afterward.
+**We narrowed the search from general football news to contextual tactical evidence:** defensive blocks, pressing, direct play, responses to opposing systems, venue-specific changes and player roles. Injury news, transfer gossip and selection controversy do not meet this tactical brief merely because they mention a relevant player.
 
-## Comparing text extraction on the same HTML
+**The useful unit is a tactical claim attached to a team, opponent, manager and time—not an entire article assigned to a permanent club style.** Vector search can propose passages for that process, but correct attribution and supporting evidence need validation.
 
-I compared [Trafilatura in precision mode](https://trafilatura.readthedocs.io/en/stable/extraction-overview.html) with a simple BeautifulSoup baseline that collected paragraphs inside article-body selectors. Both used the same saved HTML.
-
-| Sample | Trafilatura words | Paragraph-selector words |
-| --- | ---: | ---: |
-| Sky: Liverpool creativity and scoring | 906 | 805 |
-| BBC: Palmer and England selection | 1,187 | 1,243 |
-| BBC: Anderson and Manchester City | 1,186 | 1,289 |
-
-Word counts demonstrate that text was available. They do not tell me which extractor preserved the right information. More words could mean better coverage or more unrelated material.
-
-The inspected BBC previews contained coherent reporting, with a small publication-header artifact. The Sky text included the article headline, summary, timestamp and football reporting. This is enough to justify further testing of local extraction, but it is not an accuracy benchmark or evidence of reliable injury and lineup coverage.
-
-The experiment also has a cheap iteration loop: update the parser, replay the saved responses and inspect the results in DuckDB.
-
-```sql
-SELECT
-    source,
-    title,
-    words,
-    baseline_words,
-    left(text, 500) AS preview
-FROM news.articles
-ORDER BY source, title;
-```
-
-## Making a small request budget real
-
-The script required an explicit article allowance. Its default was discovery only, with zero new article fetches. It capped new article URL attempts at five per run and ten per UTC day by default, with a configurable daily ceiling of twenty. Feed and robots.txt requests were separate from those article caps.
-
-Other controls included a three-megabyte response limit, a one-second pause before requests, no automatic HTTP retries and no automatic redirect following. The ledger counted attempts, including unsuccessful ones.
-
-One Sky URL illustrated why that matters. Its feed URL returned a 301 redirect to another path on the same publisher. The script saved the redirect response. A later run fetched the recorded target as another separately budgeted request.
-
-The entire sample used eight HTTP requests: two feeds, two robots files and four article URL attempts. Those four attempts produced three article bodies and one redirect response.
-
-## What once-only fetching actually guarantees
-
-Before requesting an article, the script stores a durable reservation for its normalized URL. A timeout or crash leaves that URL reserved, and subsequent runs skip it. A failed HTTP response is also retained rather than automatically retried.
-
-This is a conservative tradeoff. It avoids repeating requests after an uncertain outcome, but it can leave an article unavailable until someone investigates. It also deliberately misses later edits to an already fetched URL.
-
-The guarantee applies to normalized URLs in the retained state directory. It does not prove that two different URLs represent different stories. The script removes selected tracking parameters and fragments, and can resolve one previously recorded same-host redirect. It does not yet resolve publisher article IDs, canonical HTML links or syndicated copies. Deleting the state directory loses both deduplication and budget history.
-
-I verified that an offline replay and a zero-daily-budget run both reprocessed all three saved articles without changing the request ledger. Mocked HTTP checks also confirmed that reserved and failed URLs were skipped and that offline mode did not open an HTTP client.
-
-## What I would do next
-
-The small sample gives me a practical reason to continue with direct feeds and local extraction before evaluating a paid provider. It does not yet justify automated injury claims or predicted lineups.
-
-The next steps are to assess relevance across several matchdays, inspect extraction quality, and link reporting to existing player, team and fixture IDs. Any later structured extraction should preserve the source, publication time and supporting text, while distinguishing predictions from confirmed information.
-
-BigQuery remains a possible destination once the collection is useful. I would start with filtered keyword retrieval and dbt document preparation, then evaluate embeddings and vector search against actual retrieval failures. None of those warehouse capabilities were tested here.
-
-Article fetching checked the publishers' robots.txt rules and did not bypass access controls. Full-text processing and reuse permissions remain unverified; successful retrieval is not permission to redistribute an article. This write-up reports measurements without republishing the sampled article bodies.
-
-For now, the most useful outcome is a repeatable local experiment: a few saved documents, a visible request budget, and evidence that article selection deserves attention before adding more services.
+The next experiment should label a small, varied set of these claims and test retrieval and attribution before evaluating their contribution to forecasts. We now have useful sources and a clearer selection brief; we have not yet shown a predictive improvement.
